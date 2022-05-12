@@ -1,0 +1,57 @@
+{
+  "name": "delivery-nodejs",
+  "version": "1.0.0",
+  "description": "A Nodejs SDK for BorderlessHQ.",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
+  "scripts": {
+    "start": "node dist/src/index.js",
+    "clean": "rimraf coverage build tmp",
+    "build": "tsc -p tsconfig.release.json",
+    "prepare": "npm run build",
+    "build:watch": "tsc -w -p tsconfig.release.json",
+    "lint": "eslint . --ext .ts,.tsx",
+    "test": "jest",
+    "coverage": "jest --coverage",
+    "test:watch": "jest --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/borderlesshq/delivery-nodejs.git"
+  },
+  "keywords": [
+    "sdk",
+    "borderlesshq"
+  ],
+  "author": "SEYI-JS",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/borderlesshq/delivery-nodejs/issues"
+  },
+  "homepage": "https://github.com/borderlesshq/delivery-nodejs#readme",
+  "dependencies": {
+    "eslint": "^8.15.0",
+    "tslib": "^2.4.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.17.10",
+    "@babel/preset-env": "^7.17.10",
+    "@babel/preset-typescript": "^7.16.7",
+    "@types/node": "^17.0.33",
+    "@typescript-eslint/eslint-plugin": "^5.23.0",
+    "@typescript-eslint/parser": "^5.23.0",
+    "babel-jest": "^28.1.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.2.0",
+    "eslint-plugin-promise": "^6.0.0",
+    "jest": "^28.1.0",
+    "nodemon": "^2.0.16",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.4"
+  },
+  "files": [
+    "dist/**/*"
+  ]
+
+}
