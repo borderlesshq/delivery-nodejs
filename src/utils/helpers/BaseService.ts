@@ -1,4 +1,10 @@
-import { createClient } from "@urql/core";
+import {
+  cacheExchange,
+  CombinedError,
+  createClient,
+  dedupExchange,
+  errorExchange,
+} from "@urql/core";
 import { RolesEnum } from "../../enums/index";
 import { DeliveryOptionsInterface } from "../../interfaces";
 import "isomorphic-unfetch";
@@ -25,6 +31,8 @@ class BaseService {
       },
     });
   }
+
+  // name = this.request().post()
 }
 
 export default BaseService;

@@ -54,7 +54,7 @@ class Misc {
               query listStates($iso2:String!){
                 listStates(iso2:$iso2){
                   name,
-                  stateCode
+                  stateCode,
                 }
               }
             `;
@@ -66,6 +66,39 @@ class Misc {
       }
 
       throw new Error(response.error.message);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getCountryByIso2(iso2: string): Promise<ICountry> {
+    const QUERY = `
+              query getCountryByIso2($iso2:String!){
+                getCountryByIso2(iso2:$iso2){
+                  name,
+                  iso2,
+                  iso3,
+                  phone_code,
+                  capital,
+                  currency,
+                  region,
+                  sub_region,
+                  emoji,
+                  emojiU,
+                  states{name,stateCode}
+                }
+              }
+            `;
+
+    const response = await this.request.query(QUERY, { iso2 }).toPromise();
+
+    try {
+      // console.log(response.operation);
+      if (response.data) {
+        return response.data.getCountryByIso2;
+      }
+
+      // throw new Error(response.error.message);
     } catch (error) {
       throw error;
     }

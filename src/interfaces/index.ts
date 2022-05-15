@@ -17,7 +17,7 @@ export interface ICountry {
   sub_region: string;
   emoji: string;
   emojiU: string;
-  states: IState;
+  states: IState[];
 }
 
 export interface IState {

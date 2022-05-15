@@ -10,7 +10,7 @@ let service: Misc;
 describe("Miscellenous Methods Tests", () => {
   beforeAll(async () => {
     const delivery = new Delivery({
-      token: "",
+      token: "ggygygygyg",
       role: RolesEnum.User,
       business_id: "testing",
     });
@@ -25,7 +25,13 @@ describe("Miscellenous Methods Tests", () => {
   });
 
   it("should get a list of states based on iso2", async () => {
-    const response = await service.listStates("1");
+    const response = await service.listStates(iso2);
+
+    expect(response).toBeDefined();
+  });
+
+  it("should get a country by iso2", async () => {
+    const response = await service.getCountryByIso2(iso2);
 
     expect(response).toBeDefined();
   });

@@ -21,9 +21,9 @@ enum RolesEnum {
 
 const del = new Delivery({ token: "", role: RolesEnum.User, business_id: "" });
 
-async () => {
-  const list = await del.misc.listCountries(2);
+(async () => {
+  const list = await del.misc.getCountryByIso2("AF");
   console.log(list);
-};
+})();
 
 export default Delivery;
