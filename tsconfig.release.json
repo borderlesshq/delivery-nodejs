@@ -6,5 +6,6 @@
     "outDir": "dist",
     "removeComments": true
   },
+  "exclude": ["src/test/**/*"],
   "include": ["src/**/*"]
 }

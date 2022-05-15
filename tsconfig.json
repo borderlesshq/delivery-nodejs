@@ -4,7 +4,7 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
-    "allowJs": true,
+    // "allowJs": true,
     "importHelpers": true,
     "alwaysStrict": true,
     "sourceMap": true,
@@ -17,7 +17,7 @@
     "noImplicitThis": false,
     "strictNullChecks": false,
     "declaration": true,
-    "lib": ["esnext"]
+    "lib": ["esnext", "DOM"]
   },
-  "include": ["src/**/*", "dist/src/**/*", "__tests__/**/*"]
+  "include": ["src/**/*", "dist/src/**/*", "__tests__/**/*", "node_modules"]
 }

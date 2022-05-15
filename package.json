@@ -6,10 +6,11 @@
   "types": "dist/src/index.d.ts",
   "scripts": {
     "start": "node dist/src/index.js",
+    "start:dev": "nodemon dist/src/index.js",
     "clean": "rimraf coverage build tmp",
     "build": "tsc -p tsconfig.release.json",
     "prepare": "npm run build",
-    "build:watch": "tsc -w -p tsconfig.release.json",
+    "build:watch": "tsc -w -p tsconfig.release.json && npm start",
     "lint": "eslint . --ext .ts,.tsx",
     "test": "jest",
     "coverage": "jest --coverage",
@@ -30,13 +31,17 @@
   },
   "homepage": "https://github.com/borderlesshq/delivery-nodejs#readme",
   "dependencies": {
+    "@urql/core": "^2.4.4",
     "eslint": "^8.15.0",
+    "graphql": "^16.5.0",
+    "isomorphic-unfetch": "^3.1.0",
     "tslib": "^2.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.17.10",
     "@babel/preset-env": "^7.17.10",
     "@babel/preset-typescript": "^7.16.7",
+    "@types/jest": "^27.5.1",
     "@types/node": "^17.0.33",
     "@typescript-eslint/eslint-plugin": "^5.23.0",
     "@typescript-eslint/parser": "^5.23.0",
@@ -53,5 +58,4 @@
   "files": [
     "dist/**/*"
   ]
-
 }
