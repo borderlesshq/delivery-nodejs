@@ -14,8 +14,8 @@ class Misc {
    */
   async listCountries(limit: number): Promise<ICountry[]> {
     const QUERY = `
-    query{
-      listCountries(limit:${limit}){
+    query listCountries($limit:Int!){
+      listCountries(limit:$limit){
         name,
         iso2,
         iso3,
@@ -31,14 +31,14 @@ class Misc {
     }
     `;
 
-    const response = await this.request.query(QUERY).toPromise();
+    const response = await this.request(QUERY, { limit });
 
     try {
       if (response.data) {
         return response.data.listCountries;
       }
 
-      throw new Error(response.error.message);
+      throw Error(response.error);
     } catch (error) {
       throw error;
     }
@@ -59,20 +59,21 @@ class Misc {
               }
             `;
 
-    const response = await this.request.query(QUERY, { iso2 }).toPromise();
+    const response = await this.request(QUERY, { iso2 });
     try {
       if (response.data) {
         return response.data.listStates;
       }
 
-      throw new Error(response.error.message);
+      throw Error(response.error);
     } catch (error) {
       throw error;
     }
   }
 
   async getCountryByIso2(iso2: string): Promise<ICountry> {
-    const QUERY = `
+    try {
+      const QUERY = `
               query getCountryByIso2($iso2:String!){
                 getCountryByIso2(iso2:$iso2){
                   name,
@@ -90,15 +91,9 @@ class Misc {
               }
             `;
 
-    const response = await this.request.query(QUERY, { iso2 }).toPromise();
+      const response = await this.request(QUERY, { iso2 });
 
-    try {
-      // console.log(response.operation);
-      if (response.data) {
-        return response.data.getCountryByIso2;
-      }
-
-      // throw new Error(response.error.message);
+      return response.data.getCountryByIso2;
     } catch (error) {
       throw error;
     }

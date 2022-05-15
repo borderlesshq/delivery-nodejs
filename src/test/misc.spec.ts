@@ -30,9 +30,9 @@ describe("Miscellenous Methods Tests", () => {
     expect(response).toBeDefined();
   });
 
-  it("should get a country by iso2", async () => {
-    const response = await service.getCountryByIso2(iso2);
+  //   it("should get a country by iso2", async () => {
+  //     const response = await service.getCountryByIso2(iso2);
 
-    expect(response).toBeDefined();
-  });
+  //     expect(response).toBeDefined();
+  //   });
 });

@@ -12,7 +12,7 @@ class Delivery extends BaseService {
     super(payload);
   }
 
-  misc = new Misc(this.request());
+  misc = new Misc(this.request);
 }
 
 enum RolesEnum {
@@ -21,9 +21,9 @@ enum RolesEnum {
 
 const del = new Delivery({ token: "", role: RolesEnum.User, business_id: "" });
 
-(async () => {
-  const list = await del.misc.getCountryByIso2("AF");
+async () => {
+  const list = await del.misc.listCountries(10);
   console.log(list);
-})();
+};
 
 export default Delivery;
