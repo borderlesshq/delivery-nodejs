@@ -1,7 +1,6 @@
-import Delivery from "..";
-import { RolesEnum } from "../enums";
-import Misc from "../modules/misc";
-import { instancePayload } from "../utils/data/test.data";
+import Delivery from "../src";
+import Misc from "../src/modules/misc";
+import { instancePayload } from "./data/test.data";
 jest.setTimeout(10000);
 
 // let DeliveryInstance;

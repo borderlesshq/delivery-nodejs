@@ -11,38 +11,19 @@ class Business {
   async setupBusiness(
     payload: SetupBusinessPayload
   ): Promise<{ data: any; error: string }> {
-    const QUERY = `
-    query setupBusiness(
-        $name: String!
-        $planId: String!
-        $brandLogoURL: String!
-        $brandCoverPhotoURL: String!
-        $brandColor: String!
-        $contactEmail: String!
-        $contactPhone: String!
-        $address: String!
-        $iso2: String!
-        $stateCode: String!){
-        setupBusiness(name: $name,
-            planId: $planId,
-            brandLogoURL: $brandLogoURL,
-            brandCoverPhotoURL: $brandCoverPhotoURL,
-            brandColor:$brandColor,
-            contactEmail:$contactEmail,
-            contactPhone: $contactPhone,
-            address: $address,
-            iso2: $iso2,
-            stateCode: $stateCode){
+    const MUTATION = `
+    mutation setupBusiness($payload: SetupBusinessInput!){
+        setupBusiness(payload:$payload){
         success,
         message,
         token,
-        resulType,
+        resultType,
         data
       }
     }
     `;
 
-    const response = await this.request(QUERY, { payload });
+    const response = await this.request(MUTATION, { payload });
 
     return FormatResponse(response, "setupBusiness");
   }

@@ -1,6 +1,5 @@
 export interface SetupBusinessPayload {
   name: string;
-  planId: string;
   brandLogoURL: string;
   brandCoverPhotoURL: string;
   brandColor: string;

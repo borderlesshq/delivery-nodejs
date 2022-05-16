@@ -19,5 +19,11 @@
     "declaration": true,
     "lib": ["esnext", "DOM"]
   },
-  "include": ["src/**/*", "dist/src/**/*", "__tests__/**/*", "node_modules"]
+  "include": [
+    "src/**/*",
+    "dist/src/**/*",
+    "__tests__/**/*",
+    "node_modules",
+    "test"
+  ]
 }

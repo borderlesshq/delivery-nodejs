@@ -3,7 +3,7 @@ import { ICountry } from "./interface";
 import { FormatResponse } from "../../utils/helpers/functions";
 
 class Misc {
-  private request;
+  private request: any;
   constructor(request) {
     this.request = request;
   }

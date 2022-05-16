@@ -3,6 +3,7 @@ import "isomorphic-unfetch";
 import BaseService from "./utils/helpers/BaseService";
 import Misc from "./modules/misc";
 import Business from "./modules/business";
+import Account from "./modules/account";
 class Delivery extends BaseService {
   //   public service: any;
   /**
@@ -13,8 +14,9 @@ class Delivery extends BaseService {
     super(payload);
   }
 
-  misc = new Misc(this.request);
-  business = new Business(this.request);
+  misc: Misc = new Misc(this.request);
+  business: Business = new Business(this.request);
+  account: Account = new Account(this.request);
 }
 
 enum RolesEnum {

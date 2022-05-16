@@ -1,6 +1,6 @@
-import Delivery from "..";
-import Business from "../modules/business";
-import { businessSetupDetails, instancePayload } from "../utils/data/test.data";
+import Delivery from "../src";
+import Business from "../src/modules/business";
+import { businessSetupDetails, instancePayload } from "./data/test.data";
 
 jest.setTimeout(10000);
 
@@ -14,7 +14,6 @@ describe("Business methods tests", () => {
 
   it("should setup a business account", async () => {
     const response = await service.setupBusiness(businessSetupDetails);
-
     expect(response.data).toBeDefined();
   });
 });
