@@ -2,6 +2,7 @@ import { DeliveryOptionsInterface } from "./interfaces";
 import "isomorphic-unfetch";
 import BaseService from "./utils/helpers/BaseService";
 import Misc from "./modules/misc";
+import Business from "./modules/business";
 class Delivery extends BaseService {
   //   public service: any;
   /**
@@ -13,6 +14,7 @@ class Delivery extends BaseService {
   }
 
   misc = new Misc(this.request);
+  business = new Business(this.request);
 }
 
 enum RolesEnum {
@@ -22,7 +24,7 @@ enum RolesEnum {
 const del = new Delivery({ token: "", role: RolesEnum.User, business_id: "" });
 
 async () => {
-  const list = await del.misc.listCountries(10);
+  const list = await del.misc.getCountryByIso2("3");
   console.log(list);
 };
 
