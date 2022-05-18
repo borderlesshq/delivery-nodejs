@@ -44,7 +44,7 @@ class BaseService {
   protected request = async (query, variables) => {
     const { token, business_id, role } = this.payload;
 
-    return await fetch("https://staging-apis.borderless.delivery/graphql", {
+    return await fetch("http://staging-apis.borderless.delivery/graphql", {
       method: "POST",
       headers: {
         Authorization: token ? `Bearer ${token}` : "",

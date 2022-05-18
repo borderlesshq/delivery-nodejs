@@ -12,10 +12,6 @@ let service: Authentication;
 let integrationId = "01g3a2bqx1affnbbgn9qvw852n";
 describe("Authentication methods test", () => {
   beforeAll(async () => {
-    const {
-      registered_business: { id },
-    } = registered_user;
-    instancePayload.business_id = id;
     const delivery = new Delivery(instancePayload);
 
     service = delivery.authentication;
@@ -60,8 +56,6 @@ describe("Authentication methods test", () => {
 
   it("should regenerate the integration api keys", async () => {
     const response = await service.reGenerateIntegrationAPIKeys(integrationId);
-
-    console.log(response);
 
     expect(response.data).toBeDefined();
     expect(response.data.success).toBeTruthy();

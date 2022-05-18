@@ -47,9 +47,9 @@ export const registered_user = {
 
 export const instancePayload: DeliveryOptionsInterface = {
   token:
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjAxZzM3YXBkbXlkMThhOWYxcm5qNHh2Ym1tIiwiY2xpZW50IjoiIiwiaXNzIjoiQm9yZGVybGVzcyBIUSBJbmMuIiwic3ViIjoiQm9yZGVybGVzc0hRIEFQSSBUb2tlbiIsImF1ZCI6Imh0dHBzOi8vYm9yZGVybGVzc2hxLmNvbSIsImlhdCI6MTY1MjgyMzg2NSwianRpIjoiQm9yZGVybGVzcyBIUSBJbmMuIn0._rLZDmWe65XNyUDaexKqTq6g4jvUM1qdpIDFw44emuo",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjAxZzM3YXBkbXlkMThhOWYxcm5qNHh2Ym1tIiwiY2xpZW50IjoiIiwiaXNzIjoiQm9yZGVybGVzcyBIUSBJbmMuIiwic3ViIjoiQm9yZGVybGVzc0hRIEFQSSBUb2tlbiIsImF1ZCI6Imh0dHBzOi8vYm9yZGVybGVzc2hxLmNvbSIsImlhdCI6MTY1MjkwOTA3MiwianRpIjoiQm9yZGVybGVzcyBIUSBJbmMuIn0.NuN0JkS-HLdIddRkFAE0jYCiAKWzwi_ADI56G-gwpMM",
   role: "User",
-  business_id: "1234",
+  business_id: registered_user.registered_business.id,
 };
 
 export const businessSetupDetails: SetupBusinessPayload = {
