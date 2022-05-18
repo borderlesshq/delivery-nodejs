@@ -1,6 +1,6 @@
 export enum RolesEnum {
   User = "User",
-  Custormer = "Customer",
+  Customer = "Customer",
   Driver = "Driver",
   API = "API",
 }

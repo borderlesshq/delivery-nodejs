@@ -4,6 +4,7 @@ import BaseService from "./utils/helpers/BaseService";
 import Misc from "./modules/misc";
 import Business from "./modules/business";
 import Account from "./modules/account";
+import Authentication from "./modules/authentication";
 class Delivery extends BaseService {
   //   public service: any;
   /**
@@ -17,6 +18,7 @@ class Delivery extends BaseService {
   misc: Misc = new Misc(this.request);
   business: Business = new Business(this.request);
   account: Account = new Account(this.request);
+  authentication: Authentication = new Authentication(this.request);
 }
 
 enum RolesEnum {

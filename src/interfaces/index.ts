@@ -1,7 +1,5 @@
-import { RolesEnum } from "../enums";
-
 export interface DeliveryOptionsInterface {
-  role: RolesEnum;
+  role: "User" | "Driver" | "API" | "Customer";
   token?: string;
   business_id: string;
 }
