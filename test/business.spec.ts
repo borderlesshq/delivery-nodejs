@@ -1,6 +1,8 @@
 import faker from "@faker-js/faker";
+import { ICountry } from "../dist/src/modules/misc/interface";
 import Delivery from "../src";
 import Business from "../src/modules/business";
+import Misc from "../src/modules/misc";
 import {
   businessSetupDetails,
   instancePayload,
@@ -12,19 +14,27 @@ jest.setTimeout(10000);
 let service: Business;
 let businessName: string;
 let business_id: string;
+let countries: ICountry[];
+let operating_country_id: string;
 let iso2: string;
+let stateCode: string;
+let misc_service: Misc;
+
 describe("Business methods tests", () => {
   beforeAll(async () => {
     const delivery = new Delivery(instancePayload);
 
     service = delivery.business;
+    misc_service = delivery.misc;
+
+    countries = (await delivery.misc.listCountries(100)).data;
   });
 
   it("should setup a business account", async () => {
     const response = await service.setupBusiness(businessSetupDetails);
 
     businessName = businessSetupDetails.name;
-    iso2 = businessSetupDetails.iso2;
+    // iso2 = businessSetupDetails.iso2;
     expect(response.data).toBeDefined();
 
     business_id = response.data.data.id;
@@ -53,18 +63,26 @@ describe("Business methods tests", () => {
     expect(response.data.success).toBeTruthy();
   });
 
-  let operating_country_id: string;
+  const getCountry = async (): Promise<ICountry> => {
+    const country = countries[Math.floor(Math.random() * countries.length)];
+    iso2 = country.iso2;
+    // stateCode = country.states[0].stateCode;
+
+    stateCode = (await misc_service.listStates(iso2)).data[0].stateCode;
+
+    return country;
+  };
   it("should create a business operating country", async () => {
+    await getCountry();
+
     const response = await service.createBusinessOperatingCountry({
       businessId: business_id,
       businessName,
-      iso2: faker.address.countryCode("alpha-2"),
+      iso2: iso2,
       controls: {
         allowedVehicleCategories: ["Bicycle"],
       },
     });
-
-    console.log(response);
 
     expect(response.data).toBeTruthy();
     expect(response.data.success).toBeTruthy();
@@ -97,6 +115,19 @@ describe("Business methods tests", () => {
     const response = await service.activateBusinessOperatingCountry(
       operating_country_id
     );
+    expect(response.data).toBeTruthy();
+    expect(response.data.success).toBeTruthy();
+  });
+
+  it("should create business operating state", async () => {
+    const response = await service.createBusinessOperatingState({
+      businessId: business_id,
+      businessName: businessName,
+      iso2: iso2,
+      controls: { allowedVehicleCategories: ["Bicycle"] },
+      stateCode: stateCode,
+    });
+
     expect(response.data).toBeTruthy();
     expect(response.data.success).toBeTruthy();
   });

@@ -53,3 +53,11 @@ export interface IUpdateBusinessOperatingCountryInput {
   overrideOperatingStatesControls?: boolean;
   controls?: IControls;
 }
+
+export interface ICreateBusinessOperatingStateInput {
+  businessId: string;
+  businessName: string;
+  stateCode: string;
+  iso2: string;
+  controls: IControls;
+}

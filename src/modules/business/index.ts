@@ -1,6 +1,7 @@
 import { FormatResponse } from "../../utils/helpers/functions";
 import {
   ICreateBusinessOperatingCompany,
+  ICreateBusinessOperatingStateInput,
   IUpdateBusinessInput,
   IUpdateBusinessOperatingCountryInput,
   IUpdateBusinessSetupInput,
@@ -162,6 +163,26 @@ class Business {
     const response = await this.request(MUTATION, { id });
 
     return FormatResponse(response, "activateBusinessOperatingCountry");
+  }
+
+  async createBusinessOperatingState(
+    payload: ICreateBusinessOperatingStateInput
+  ): Promise<{ data: any; error: string }> {
+    const MUTATION = `
+      mutation createBusinessOperatingState($payload:CreateBusinessOperatingStateInput!){
+        createBusinessOperatingState(payload:$payload){
+          success,
+          message,
+          token,
+          resultType,
+          data
+        }
+      }
+    `;
+
+    const response = await this.request(MUTATION, { payload });
+
+    return FormatResponse(response, "createBusinessOperatingState");
   }
 }
 
