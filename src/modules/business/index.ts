@@ -1,9 +1,11 @@
 import { FormatResponse } from "../../utils/helpers/functions";
 import {
-  ICreateBusinessOperatingCompany,
+  IBusinessOperatingCountriesFilter,
+  ICreateBusinessOperatingCountry,
   ICreateBusinessOperatingStateInput,
   IUpdateBusinessInput,
   IUpdateBusinessOperatingCountryInput,
+  IUpdateBusinessOperatingStateInput,
   IUpdateBusinessSetupInput,
   SetupBusinessPayload,
 } from "./interface";
@@ -86,7 +88,7 @@ class Business {
   }
 
   async createBusinessOperatingCountry(
-    payload: ICreateBusinessOperatingCompany
+    payload: ICreateBusinessOperatingCountry
   ): Promise<{ data: any; error: string }> {
     const MUTATION = `
       mutation  createBusinessOperatingCountry($payload:CreateBusinessOperatingCountryInput!){
@@ -183,6 +185,105 @@ class Business {
     const response = await this.request(MUTATION, { payload });
 
     return FormatResponse(response, "createBusinessOperatingState");
+  }
+
+  async updateBusinessOperatingState(
+    payload: IUpdateBusinessOperatingStateInput
+  ): Promise<{ data: any; error: string }> {
+    const MUTATION = `
+      mutation updateBusinessOperatingState($payload:UpdateBusinessOperatingStateInput!){
+        updateBusinessOperatingState(payload:$payload){
+          success,
+          message,
+          token,
+          resultType,
+          data
+        }
+      }
+    `;
+
+    const response = await this.request(MUTATION, { payload });
+
+    return FormatResponse(response, "updateBusinessOperatingState");
+  }
+
+  async deactivateBusinessOperatingState(
+    id: string
+  ): Promise<{ data: any; error: string }> {
+    const MUTATION = `
+      mutation deactivateBusinessOperatingState($id:String!){
+        deactivateBusinessOperatingState(id:$id){
+          success,
+          message,
+          token,
+          resultType,
+          data
+        }
+      }
+    `;
+
+    const response = await this.request(MUTATION, { id });
+
+    return FormatResponse(response, "deactivateBusinessOperatingState");
+  }
+
+  async activateBusinessOperatingState(
+    id: string
+  ): Promise<{ data: any; error: string }> {
+    const MUTATION = `
+      mutation activateBusinessOperatingState($id:String!){
+        activateBusinessOperatingState(id:$id){
+          success,
+          message,
+          token,
+          resultType,
+          data
+        }
+      }
+    `;
+
+    const response = await this.request(MUTATION, { id });
+
+    return FormatResponse(response, "activateBusinessOperatingState");
+  }
+
+  async listBusinessOperatingCountries(
+    filters: IBusinessOperatingCountriesFilter
+  ): Promise<{ data: any; error: string }> {
+    const QUERY = `
+      query listBusinessOperatingCountries($filters: BusinessOperatingCountriesFilter!){
+        listBusinessOperatingCountries(filters:$filters){
+          count,
+          nextPageCursor,
+          previousPageCursor,
+          data{
+            id,
+            businessId,
+            businessName,
+            iso2,
+            controls,
+            name,
+            currency,
+            iso3,
+            totalCustomers,
+            totalDrivers,
+            totalVehicles,
+            totalOutlets,
+            geometry,
+            overrideOperatingStatesControl,
+            status: status,
+            contract,
+            timeCreated,
+            timeUpdated,
+          
+          }
+        }
+      }
+    `;
+
+    const response = await this.request(QUERY, { filters });
+
+    return FormatResponse(response, "listBusinessOperatingCountries");
   }
 }
 

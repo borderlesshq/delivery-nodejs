@@ -19,6 +19,7 @@ let operating_country_id: string;
 let iso2: string;
 let stateCode: string;
 let misc_service: Misc;
+let operating_state_id: string;
 
 describe("Business methods tests", () => {
   beforeAll(async () => {
@@ -115,6 +116,8 @@ describe("Business methods tests", () => {
     const response = await service.activateBusinessOperatingCountry(
       operating_country_id
     );
+
+    // console.log(response);
     expect(response.data).toBeTruthy();
     expect(response.data.success).toBeTruthy();
   });
@@ -128,7 +131,46 @@ describe("Business methods tests", () => {
       stateCode: stateCode,
     });
 
+    operating_state_id = response.data.data.id;
+
     expect(response.data).toBeTruthy();
     expect(response.data.success).toBeTruthy();
   });
+
+  it("should update a business operating state", async () => {
+    const response = await service.updateBusinessOperatingState({
+      id: operating_state_id,
+      controls: { allowedVehicleCategories: ["Bicycle"] },
+    });
+
+    expect(response.data).toBeTruthy();
+    expect(response.data.success).toBeTruthy();
+  });
+
+  // it("should deactivate a business operating state", async () => {
+  //   const response = await service.deactivateBusinessOperatingState(
+  //     operating_state_id
+  //   );
+
+  //   console.log(response);
+  //   expect(response.data).toBeTruthy();
+  //   expect(response.data.success).toBeTruthy();
+  // });
+
+  it("should activate a business operating state", async () => {
+    const response = await service.activateBusinessOperatingState(
+      operating_state_id
+    );
+    expect(response.data).toBeTruthy();
+    expect(response.data.success).toBeTruthy();
+  });
+
+  // it("should list the business operating countries", async () => {
+  //   const response = await service.listBusinessOperatingCountries({
+  //     limit: 10,
+  //   });
+
+  //   console.log(response);
+  //   expect(response.data).toBeTruthy();
+  // });
 });

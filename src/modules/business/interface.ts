@@ -1,3 +1,4 @@
+import { status } from "../authentication/interface";
 export interface SetupBusinessPayload {
   name: string;
   brandLogoURL: string;
@@ -26,7 +27,7 @@ export interface IUpdateBusinessSetupInput {
   planId: string;
 }
 
-export interface ICreateBusinessOperatingCompany {
+export interface ICreateBusinessOperatingCountry {
   businessId: string;
   businessName: string;
   iso2: string;
@@ -60,4 +61,56 @@ export interface ICreateBusinessOperatingStateInput {
   stateCode: string;
   iso2: string;
   controls: IControls;
+}
+
+export interface IUpdateBusinessOperatingStateInput {
+  id: string;
+  controls: IControls;
+}
+
+export interface IBusinessOperatingCountriesFilter {
+  pageCursor?: string;
+  status?: status;
+  limit: number;
+}
+
+export interface IBusinessOperatingCountry {
+  id: string;
+  businessId: string;
+  businessName: string;
+  iso2: string;
+  name: string;
+  controls: IControls;
+  currency: string;
+  iso3: string;
+  totalCustomers: string;
+  totalDrivers: string;
+  totalVehicles: string;
+  totalOutlets: string;
+  geometry: IGeometry;
+  overrideOperatingStatesControl: boolean;
+  status: status;
+  contract: "";
+  timeCreated: number;
+  timeUpdated: number;
+}
+
+export interface IGeometry {
+  location: LatLng;
+  bounds: LatLngBounds;
+  viewport: LatLngBounds;
+}
+
+export interface LatLngBounds {
+  northeast: LatLng;
+  southwest: LatLng;
+}
+
+export interface LatLng {
+  lat: number;
+  ing: number;
+}
+
+export interface IBusinessCountryContract {
+  id: string;
 }
