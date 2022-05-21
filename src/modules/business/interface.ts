@@ -1,4 +1,4 @@
-import { status } from "../authentication/interface";
+import { IEnvironment, status } from "../authentication/interface";
 export interface SetupBusinessPayload {
   name: string;
   brandLogoURL: string;
@@ -88,9 +88,9 @@ export interface IBusinessOperatingCountry {
   totalVehicles: string;
   totalOutlets: string;
   geometry: IGeometry;
-  overrideOperatingStatesControl: boolean;
+  overrideOperatingStatesControls: boolean;
   status: status;
-  contract: "";
+  contract: IBusinessCountryContract;
   timeCreated: number;
   timeUpdated: number;
 }
@@ -108,9 +108,30 @@ export interface LatLngBounds {
 
 export interface LatLng {
   lat: number;
-  ing: number;
+  lng: number;
 }
+
+export type IContractCategory =
+  | "BO_DELIVERY_PRICE_CALCULATION"
+  | "BO_DELIVERY_CREATED"
+  | "BO_DELIVERY_COMPLETED"
+  | "BO_DELIVERY_CANCELED";
 
 export interface IBusinessCountryContract {
   id: string;
+  businessId: string;
+  businessName: string;
+  iso2: string;
+  country: string;
+  stateCode: string;
+  state: string;
+  category: IContractCategory;
+  environment: IEnvironment;
+  status: status;
+  code: string;
+  codeLanguage: ICodeLanguage;
+  timeCreated: number;
+  timeUpdated: number;
 }
+
+export type ICodeLanguage = "javascript";

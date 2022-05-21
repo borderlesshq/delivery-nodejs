@@ -15,7 +15,7 @@ export interface IIntegration {
   sandboxKey: string;
   liveKey: string;
   name: string;
-  environment: "live" | "sandbox";
+  environment: IEnvironment;
   status: status;
   businessId: string;
   businessName: string;
@@ -23,6 +23,8 @@ export interface IIntegration {
   timeUpdated: number;
   lastUsage: number;
 }
+
+export type IEnvironment = "live" | "sandbox";
 
 export type status =
   | "activated"
@@ -35,7 +37,7 @@ export type status =
 
 export interface IListIntegrationsFilter {
   pageCursor?: string;
-  environment?: "live" | "sandbox";
+  environment?: IEnvironment;
   limit: number;
   sortBy: "newer" | "older";
 }

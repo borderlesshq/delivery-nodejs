@@ -3,11 +3,7 @@ import { ICountry } from "../dist/src/modules/misc/interface";
 import Delivery from "../src";
 import Business from "../src/modules/business";
 import Misc from "../src/modules/misc";
-import {
-  businessSetupDetails,
-  instancePayload,
-  registered_user,
-} from "./data/test.data";
+import { businessSetupDetails, instancePayload } from "./data/test.data";
 
 jest.setTimeout(10000);
 
@@ -42,9 +38,6 @@ describe("Business methods tests", () => {
   });
 
   it("should update business", async () => {
-    const {
-      registered_business: { id },
-    } = registered_user;
     const response = await service.updateBusiness({ id: business_id });
 
     expect(response.data).toBeDefined();
@@ -165,12 +158,28 @@ describe("Business methods tests", () => {
     expect(response.data.success).toBeTruthy();
   });
 
-  // it("should list the business operating countries", async () => {
-  //   const response = await service.listBusinessOperatingCountries({
-  //     limit: 10,
-  //   });
+  it("should list the business operating countries", async () => {
+    const response = await service.listBusinessOperatingCountries({
+      limit: 10,
+    });
 
-  //   console.log(response);
-  //   expect(response.data).toBeTruthy();
-  // });
+    expect(response.data).toBeTruthy();
+    expect(response.data.data.length).toBeGreaterThanOrEqual(1);
+  });
+
+  it("should get a business operating country by Id", async () => {
+    const response = await service.getBusinessOperatingCountryById(
+      operating_country_id
+    );
+    // console.log(response);
+
+    expect(response.data).toBeTruthy();
+  });
+
+  it("should get a business operating country by iso", async () => {
+    const response = await service.getBusinessOperatingCountryByIso2(iso2);
+    console.log(response);
+
+    expect(response.data).toBeTruthy();
+  });
 });

@@ -1,6 +1,7 @@
 import { FormatResponse } from "../../utils/helpers/functions";
 import {
   IBusinessOperatingCountriesFilter,
+  IBusinessOperatingCountry,
   ICreateBusinessOperatingCountry,
   ICreateBusinessOperatingStateInput,
   IUpdateBusinessInput,
@@ -249,7 +250,15 @@ class Business {
 
   async listBusinessOperatingCountries(
     filters: IBusinessOperatingCountriesFilter
-  ): Promise<{ data: any; error: string }> {
+  ): Promise<{
+    data: {
+      count: number;
+      nextPageCursor: string;
+      previousPageCursor: string;
+      data: IBusinessOperatingCountry[];
+    };
+    error: any;
+  }> {
     const QUERY = `
       query listBusinessOperatingCountries($filters: BusinessOperatingCountriesFilter!){
         listBusinessOperatingCountries(filters:$filters){
@@ -261,7 +270,6 @@ class Business {
             businessId,
             businessName,
             iso2,
-            controls,
             name,
             currency,
             iso3,
@@ -269,10 +277,24 @@ class Business {
             totalDrivers,
             totalVehicles,
             totalOutlets,
-            geometry,
-            overrideOperatingStatesControl,
-            status: status,
-            contract,
+              overrideOperatingStatesControls,
+            status,
+            contract{
+              id,
+              businessId,
+              businessName,
+              iso2,
+              country,
+              stateCode,
+              state,
+              category,
+              environment,
+              status,
+              code,
+              codeLanguage,
+              timeCreated,
+              timeUpdated,
+            },
             timeCreated,
             timeUpdated,
           
@@ -284,6 +306,102 @@ class Business {
     const response = await this.request(QUERY, { filters });
 
     return FormatResponse(response, "listBusinessOperatingCountries");
+  }
+
+  async getBusinessOperatingCountryById(id: string): Promise<{
+    data: IBusinessOperatingCountry;
+
+    error: any;
+  }> {
+    const QUERY = `
+          query getBusinessOperatingCountryById($id:String!){
+            getBusinessOperatingCountryById(id:$id){
+              id,
+            businessId,
+            businessName,
+            iso2,
+            name,
+            currency,
+            iso3,
+            totalCustomers,
+            totalDrivers,
+            totalVehicles,
+            totalOutlets,
+              overrideOperatingStatesControls,
+            status,
+            contract{
+              id,
+              businessId,
+              businessName,
+              iso2,
+              country,
+              stateCode,
+              state,
+              category,
+              environment,
+              status,
+              code,
+              codeLanguage,
+              timeCreated,
+              timeUpdated,
+            },
+            timeCreated,
+            timeUpdated,
+            }
+          }
+      `;
+
+    const response = await this.request(QUERY, { id });
+
+    return FormatResponse(response, "getBusinessOperatingCountryById");
+  }
+
+  async getBusinessOperatingCountryByIso2(iso2: string): Promise<{
+    data: IBusinessOperatingCountry;
+
+    error: any;
+  }> {
+    const QUERY = `
+          query getBusinessOperatingCountryByIso2($iso2:String!){
+            getBusinessOperatingCountryByIso2(iso2:$iso2){
+              id,
+            businessId,
+            businessName,
+            iso2,
+            name,
+            currency,
+            iso3,
+            totalCustomers,
+            totalDrivers,
+            totalVehicles,
+            totalOutlets,
+              overrideOperatingStatesControls,
+            status,
+            contract{
+              id,
+              businessId,
+              businessName,
+              iso2,
+              country,
+              stateCode,
+              state,
+              category,
+              environment,
+              status,
+              code,
+              codeLanguage,
+              timeCreated,
+              timeUpdated,
+            },
+            timeCreated,
+            timeUpdated,
+            }
+          }
+      `;
+
+    const response = await this.request(QUERY, { iso2 });
+
+    return FormatResponse(response, "getBusinessOperatingCountryByIso2");
   }
 }
 
