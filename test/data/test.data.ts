@@ -16,6 +16,7 @@ export const registered_user = {
   country: "Nigeria",
   status: "activated",
   token: null,
+  password: "password",
   emailVerificationToken: "452zS9XDs+klgGxqnfRka89Nu1FXSpLyh2dPguNZZSw=",
   resetPasswordToken: null,
   timeCreated: 1653163763,
@@ -50,7 +51,7 @@ export const registered_user = {
 
 export const instancePayload: DeliveryOptionsInterface = {
   token:
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjAxZzNtM3Q5czdhdnl5dnZnZzMzZWdmOGdwIiwiY2xpZW50IjoiIiwiaXNzIjoiQm9yZGVybGVzcyBIUSBJbmMuIiwic3ViIjoiQm9yZGVybGVzc0hRIEFQSSBUb2tlbiIsImF1ZCI6Imh0dHBzOi8vYm9yZGVybGVzc2hxLmNvbSIsImlhdCI6MTY1MzE2MzgxMiwianRpIjoiQm9yZGVybGVzcyBIUSBJbmMuIn0.b7ZSnuj4xF0P9ZEFumEHq8y-1QPMGMjnkeqWduqhVHs",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjAxZzNtM3Q5czdhdnl5dnZnZzMzZWdmOGdwIiwiY2xpZW50IjoiIiwiaXNzIjoiQm9yZGVybGVzcyBIUSBJbmMuIiwic3ViIjoiQm9yZGVybGVzc0hRIEFQSSBUb2tlbiIsImF1ZCI6Imh0dHBzOi8vYm9yZGVybGVzc2hxLmNvbSIsImlhdCI6MTY1MzE2NTM5NCwianRpIjoiQm9yZGVybGVzcyBIUSBJbmMuIn0.Uh6JcSrYEzf7KUaaJNGEvb-zI7XrX5XtB605h0AoCUQ",
   role: "User",
   business_id: registered_user.registered_business.id,
 };
