@@ -1,7 +1,11 @@
 import { FormatResponse } from "../../utils/helpers/functions";
 import {
+  IBusiness,
+  IBusinessFilters,
   IBusinessOperatingCountriesFilter,
   IBusinessOperatingCountry,
+  IBusinessOperatingState,
+  IBusinessOperatingStatesFilter,
   ICreateBusinessOperatingCountry,
   ICreateBusinessOperatingStateInput,
   IUpdateBusinessInput,
@@ -402,6 +406,275 @@ class Business {
     const response = await this.request(QUERY, { iso2 });
 
     return FormatResponse(response, "getBusinessOperatingCountryByIso2");
+  }
+
+  async listBusinessOperatingStates(
+    filters: IBusinessOperatingStatesFilter
+  ): Promise<{
+    data: {
+      count: number;
+      nextPageCursor: string;
+      previousPageCursor: string;
+      data: IBusinessOperatingState[];
+    };
+
+    error: any;
+  }> {
+    const QUERY = `
+        query listBusinessOperatingStates($filters:BusinessOperatingStatesFilter!){
+          listBusinessOperatingStates(filters:$filters){
+            count,
+            nextPageCursor,
+            previousPageCursor,
+            data{
+              id,
+            businessId,
+            businessName,
+            iso2,
+            name,
+            currency,
+            stateCode,
+            country,
+            totalCustomers,
+            totalDrivers,
+            totalVehicles,
+            totalOutlets,
+            status,
+            contract{
+              id,
+              businessId,
+              businessName,
+              iso2,
+              category,
+              country,
+              environment,
+              status,
+              code,
+              codeLanguage,
+              timeCreated,
+              timeUpdated,
+            },
+            timeCreated,
+            timeUpdated,
+            }
+          }
+        }
+    `;
+
+    const response = await this.request(QUERY, { filters });
+
+    return FormatResponse(response, "listBusinessOperatingStates");
+  }
+
+  async getBusinessOperatingStateById(id: string): Promise<{
+    data: IBusinessOperatingState;
+
+    error: any;
+  }> {
+    const QUERY = `
+        query getBusinessOperatingStateById($id:String!){
+          getBusinessOperatingStateById(id:$id){
+            id,
+            businessId,
+            businessName,
+            iso2,
+            name,
+            currency,
+            stateCode,
+            country,
+            totalCustomers,
+            totalDrivers,
+            totalVehicles,
+            totalOutlets,
+            status,
+            contract{
+              id,
+              businessId,
+              businessName,
+              iso2,
+              category,
+              country,
+              environment,
+              status,
+              code,
+              codeLanguage,
+              timeCreated,
+              timeUpdated,
+            },
+            timeCreated,
+            timeUpdated,
+          }
+        }
+    `;
+
+    const response = await this.request(QUERY, { id });
+
+    return FormatResponse(response, "getBusinessOperatingStateById");
+  }
+
+  async getBusinessOperatingStateByStateCode(
+    iso2: string,
+    stateCode: string
+  ): Promise<{ data: IBusinessOperatingState; error: any }> {
+    const QUERY = `
+          query getBusinessOperatingStateByStateCode($iso2:String! $stateCode:String!){
+            getBusinessOperatingStateByStateCode(iso2:$iso2, stateCode:$stateCode){
+              id,
+              businessId,
+              businessName,
+              iso2,
+              name,
+              currency,
+              stateCode,
+              country,
+              totalCustomers,
+              totalDrivers,
+              totalVehicles,
+              totalOutlets,
+              status,
+              contract{
+                id,
+                businessId,
+                businessName,
+                iso2,
+                category,
+                country,
+                environment,
+                status,
+                code,
+                codeLanguage,
+                timeCreated,
+                timeUpdated,
+              },
+              timeCreated,
+              timeUpdated,
+            }
+          }
+      `;
+
+    const response = await this.request(QUERY, { iso2, stateCode });
+
+    return FormatResponse(response, "getBusinessOperatingStateByStateCode");
+  }
+
+  async getBusinessById(id: string): Promise<{ data: IBusiness; error: any }> {
+    const QUERY = `
+        query getBusinessById($id:String!){
+          getBusinessById(id:$id){
+            id,
+            userId,
+          owner{
+            id,
+            firstName,
+            lastName,
+            email,
+            pictureURL,
+            phone,
+            address,
+            iso2,
+            status,
+            token,
+            emailVerificationToken,
+            resetPasswordToken,
+            role,
+            timeCreated,
+            timeUpdated,
+            verified
+          },
+        planId,
+        name,
+        brandColor,
+        brandLogoURL,
+        brandCoverPhotoURL,
+        contactEmail,
+        contactPhone,
+        address,
+        country,
+        iso2,
+        state,
+        stateCode,
+        status,
+        baseCurrency,
+        environment,
+        timeCreated,
+        timeUpdated,
+        category,
+        assetSize,
+        outletSize,
+        monthlyOrderVolume
+          }
+        }
+    `;
+    const response = await this.request(QUERY, { id });
+
+    return FormatResponse(response, "getBusinessById");
+  }
+
+  async listBusinesses(filters: IBusinessFilters): Promise<{
+    data: {
+      count: number;
+      nexrPageCursor: string;
+      previousPageCursor: string;
+      data: IBusiness[];
+    };
+    error: any;
+  }> {
+    const QUERY = `
+      query  listBusinesses($filters:BusinessFilters!){
+        listBusinesses(filters:$filters){
+          count,
+          nextPageCursor,
+          previousPageCursor,
+          data{
+            id,
+            userId,
+          owner{
+            id,
+            firstName,
+            lastName,
+            email,
+            pictureURL,
+            phone,
+            address,
+            iso2,
+            status,
+            token,
+            emailVerificationToken,
+            resetPasswordToken,
+            role,
+            timeCreated,
+            timeUpdated,
+            verified
+          },
+        planId,
+        name,
+        brandColor,
+        brandLogoURL,
+        brandCoverPhotoURL,
+        contactEmail,
+        contactPhone,
+        address,
+        country,
+        iso2,
+        state,
+        stateCode,
+        status,
+        baseCurrency,
+        environment,
+        timeCreated,
+        timeUpdated,
+        category,
+        assetSize,
+        outletSize,
+        monthlyOrderVolume
+          }
+        }
+      }
+    `;
+
+    const response = await this.request(QUERY, { filters });
+
+    return FormatResponse(response, "listBusinesses");
   }
 }
 

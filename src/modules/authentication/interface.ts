@@ -39,5 +39,7 @@ export interface IListIntegrationsFilter {
   pageCursor?: string;
   environment?: IEnvironment;
   limit: number;
-  sortBy: "newer" | "older";
+  sortBy: ISorting;
 }
+
+export type ISorting = "newer" | "older";

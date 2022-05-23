@@ -8,9 +8,9 @@ export const registered_user = {
   id: "01g3m3t9s7avyyvvgg33egf8gp",
   firstName: "staging",
   lastName: "staging",
-  email: "staging2@staging.com",
+  email: "staging3@staging.com",
   pictureURL: "https://ui-avatars.com/api/?name=staging+staging",
-  phone: "+2349078565325",
+  phone: "+2349078565320",
   address: null,
   iso2: "NG",
   country: "Nigeria",
@@ -24,16 +24,16 @@ export const registered_user = {
   verified: false,
   deviceId: faker.datatype.uuid(),
   registered_business: {
-    id: "01g3m6360qvxa14vp1j4we0wz6",
+    id: "01g3sb7k5m7mzvzwvb973hyecb",
     name: "Terry, Flatley and Hudson",
     brandLogoURL: "http://loremflickr.com/640/480",
     brandCoverPhotoURL: "http://loremflickr.com/640/480",
     brandColor: "#fff",
     address: "7768 Jaeden Tunnel Suite 721",
-    contactEmail: "Sheila10@example.net",
-    contactPhone: "+2349078685766",
+    contactEmail: "Sheila11@example.net",
+    contactPhone: "+2349078685760",
     iso2: "US",
-    userId: "01g3m3t9s7avyyvvgg33egf8gp",
+    userId: "01g3sb5sm01r0wfqrp4mnngy8d",
     planId: null,
     country: "United States",
     state: "American Samoa",
@@ -51,7 +51,7 @@ export const registered_user = {
 
 export const instancePayload: DeliveryOptionsInterface = {
   token:
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjAxZzNtM3Q5czdhdnl5dnZnZzMzZWdmOGdwIiwiY2xpZW50IjoiIiwiaXNzIjoiQm9yZGVybGVzcyBIUSBJbmMuIiwic3ViIjoiQm9yZGVybGVzc0hRIEFQSSBUb2tlbiIsImF1ZCI6Imh0dHBzOi8vYm9yZGVybGVzc2hxLmNvbSIsImlhdCI6MTY1MzE2NTM5NCwianRpIjoiQm9yZGVybGVzcyBIUSBJbmMuIn0.Uh6JcSrYEzf7KUaaJNGEvb-zI7XrX5XtB605h0AoCUQ",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjAxZzNzYjVzbTAxcjB3ZnFycDRtbm5neThkIiwiY2xpZW50IjoiIiwiaXNzIjoiQm9yZGVybGVzcyBIUSBJbmMuIiwic3ViIjoiQm9yZGVybGVzc0hRIEFQSSBUb2tlbiIsImF1ZCI6Imh0dHBzOi8vYm9yZGVybGVzc2hxLmNvbSIsImlhdCI6MTY1MzMzOTI5MywianRpIjoiQm9yZGVybGVzcyBIUSBJbmMuIn0.S0r35-CterKa7MUgG4O2kkVFxEckzb1P_Za51Lpr9rI",
   role: "User",
   business_id: registered_user.registered_business.id,
 };

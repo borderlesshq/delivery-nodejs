@@ -1,4 +1,5 @@
-import { IEnvironment, status } from "../authentication/interface";
+import { IUser } from "../account/interface";
+import { IEnvironment, ISorting, status } from "../authentication/interface";
 export interface SetupBusinessPayload {
   name: string;
   brandLogoURL: string;
@@ -11,6 +12,25 @@ export interface SetupBusinessPayload {
   stateCode: string;
 }
 
+export interface IBusiness extends SetupBusinessPayload {
+  id: string;
+  userId: string;
+  owner: IUser;
+  planId: string;
+  state: string;
+  status: status;
+  baseCurrencry: string;
+  environment: IEnvironment;
+  timeCreated: number;
+  timeUpdated: number;
+  category: ICategory;
+  assetSize: ISize;
+  outletSize: ISize;
+  monthlyOrderVolume: number;
+}
+
+export type ICategory = "couriers" | "retailers" | "platforms";
+
 export interface IUpdateBusinessInput extends Partial<SetupBusinessPayload> {
   id: string;
   state?: string;
@@ -20,12 +40,19 @@ export interface IUpdateBusinessInput extends Partial<SetupBusinessPayload> {
 }
 
 export interface IUpdateBusinessSetupInput {
-  category: "couriers" | "retailers" | "platforms";
-  assetSize: "not_applicable" | "small" | "medium" | "large" | "enterprise";
-  outletSize: "not_applicable" | "small" | "medium" | "large" | "enterprise";
+  category: ICategory;
+  assetSize: ISize;
+  outletSize: ISize;
   monthlyOrderVolume: number;
   planId: string;
 }
+
+export type ISize =
+  | "not_applicable"
+  | "small"
+  | "medium"
+  | "large"
+  | "enterprise";
 
 export interface ICreateBusinessOperatingCountry {
   businessId: string;
@@ -74,6 +101,10 @@ export interface IBusinessOperatingCountriesFilter {
   limit: number;
 }
 
+export interface IBusinessOperatingStatesFilter
+  extends IBusinessOperatingCountriesFilter {
+  iso2: string;
+}
 export interface IBusinessOperatingCountry {
   id: string;
   businessId: string;
@@ -83,6 +114,27 @@ export interface IBusinessOperatingCountry {
   controls: IControls;
   currency: string;
   iso3: string;
+  totalCustomers: string;
+  totalDrivers: string;
+  totalVehicles: string;
+  totalOutlets: string;
+  geometry: IGeometry;
+  overrideOperatingStatesControls: boolean;
+  status: status;
+  contract: IBusinessCountryContract;
+  timeCreated: number;
+  timeUpdated: number;
+}
+
+export interface IBusinessOperatingState {
+  id: string;
+  businessId: string;
+  businessName: string;
+  iso2: string;
+  name: string;
+  stateCode: string;
+  controls: IControls;
+  currency: string;
   totalCustomers: string;
   totalDrivers: string;
   totalVehicles: string;
@@ -132,6 +184,23 @@ export interface IBusinessCountryContract {
   codeLanguage: ICodeLanguage;
   timeCreated: number;
   timeUpdated: number;
+}
+
+export interface IBusinessFilters {
+  pageCursor?: string;
+  status?: status;
+  planId?: string;
+  iso2?: string;
+  stateCode?: string;
+  baseCurrency?: string;
+  period?: IPeriod;
+  sortBy: ISorting;
+  limit: number;
+}
+
+export interface IPeriod {
+  start: string;
+  end: string;
 }
 
 export type ICodeLanguage = "javascript";

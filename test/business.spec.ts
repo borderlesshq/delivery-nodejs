@@ -178,8 +178,47 @@ describe("Business methods tests", () => {
 
   it("should get a business operating country by iso", async () => {
     const response = await service.getBusinessOperatingCountryByIso2(iso2);
-    console.log(response);
 
     expect(response.data).toBeTruthy();
+  });
+
+  it("should list business operating states", async () => {
+    const response = await service.listBusinessOperatingStates({
+      limit: 10,
+      iso2: "NG",
+    });
+
+    expect(response.data).toBeTruthy();
+  });
+
+  it("should get business by operating state id", async () => {
+    const response = await service.getBusinessOperatingStateById(
+      operating_state_id
+    );
+
+    expect(response.data).toBeTruthy();
+  });
+
+  it("should get a business operating state by statecode", async () => {
+    const response = await service.getBusinessOperatingStateByStateCode(
+      iso2,
+      stateCode
+    );
+
+    expect(response.data).toBeTruthy();
+  });
+
+  it("should get a business by id", async () => {
+    const response = await service.getBusinessById(business_id);
+    expect(response.data).toBeTruthy();
+  });
+
+  it("should list all businesses", async () => {
+    const response = await service.listBusinesses({
+      limit: 10,
+      sortBy: "newer",
+    });
+
+    expect(response.data.data).toBeTruthy();
   });
 });

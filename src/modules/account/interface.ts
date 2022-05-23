@@ -1,3 +1,5 @@
+import { role, status } from "../authentication/interface";
+
 export interface ISetupAccount {
   firstName: string;
   lastName: string;
@@ -21,4 +23,13 @@ export interface IAccount {
   role: string;
   timeCreated: string;
   timeUpdated: string;
+}
+
+export interface IUser extends IAccount {
+  status: status;
+  token: string;
+  emailVerificationToken: string;
+  resetPasswordToken: string;
+  role: role;
+  verified: boolean;
 }
