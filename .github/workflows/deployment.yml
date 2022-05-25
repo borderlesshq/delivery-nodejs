@@ -7,7 +7,7 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
-    envronment: release
+    environment: release
     strategy:
       matrix:
         node: [16]
