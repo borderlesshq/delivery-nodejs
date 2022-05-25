@@ -5,8 +5,9 @@ on:
     branches: [master]
 
 jobs:
-  build:
+  release:
     runs-on: ubuntu-latest
+    envronment: release
     strategy:
       matrix:
         node: [16]

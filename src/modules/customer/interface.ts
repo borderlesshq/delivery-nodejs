@@ -1,0 +1,39 @@
+import Account from "../account";
+import { IAccount } from "../account/interface";
+import { role, status } from "../authentication/interface";
+import { IPeriod } from "../business/interface";
+
+export interface ICreateCustomerInput {
+  //   businessId: string;
+  firstName: string;
+  lastName: string;
+  pictureURL: string;
+  email: string;
+  phone: string;
+  iso2: String;
+  country: string;
+  address: string;
+}
+
+export interface IUpdateCustomerInput extends Partial<ICreateCustomerInput> {
+  id: string;
+}
+
+export interface ICustomer extends IAccount {
+  businessIdS: string;
+  dob: string;
+  role: role;
+  token: String;
+  state: string;
+  stateCode: string;
+}
+
+export interface ICustomerFilters {
+  nextCursorId?: string;
+  previousCursorId?: string;
+  businessId?: string;
+  status?: status;
+  iso2?: string;
+  period?: IPeriod;
+  limit: number;
+}

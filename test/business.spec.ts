@@ -24,7 +24,7 @@ describe("Business methods tests", () => {
     service = delivery.business;
     misc_service = delivery.misc;
 
-    countries = (await delivery.misc.listCountries(100)).data;
+    countries = (await delivery.misc.listCountries(1000)).data;
   });
 
   it("should setup a business account", async () => {
@@ -57,26 +57,38 @@ describe("Business methods tests", () => {
     expect(response.data.success).toBeTruthy();
   });
 
-  const getCountry = async (): Promise<ICountry> => {
+  const getCountry = async () => {
     const country = countries[Math.floor(Math.random() * countries.length)];
     iso2 = country.iso2;
     // stateCode = country.states[0].stateCode;
+    // console.log(country);
+    // stateCode = (await misc_service.listStates(iso2)).data[0].stateCode;
+    let response = (await misc_service.listStates(iso2)).data[0];
 
-    stateCode = (await misc_service.listStates(iso2)).data[0].stateCode;
+    console.log(response);
 
-    return country;
+    stateCode = response.stateCode;
+
+    return response;
   };
   it("should create a business operating country", async () => {
-    await getCountry();
+    let state = await getCountry();
+
+    if (!state) {
+      state = await getCountry();
+    }
+    stateCode = state.stateCode;
 
     const response = await service.createBusinessOperatingCountry({
       businessId: business_id,
       businessName,
       iso2: iso2,
       controls: {
-        allowedVehicleCategories: ["Bicycle"],
+        allowCancelledOrderResurrection: false,
       },
     });
+
+    console.log(response);
 
     expect(response.data).toBeTruthy();
     expect(response.data.success).toBeTruthy();
@@ -89,7 +101,7 @@ describe("Business methods tests", () => {
       id: operating_country_id,
       // overrideOperatingStatesControls: true,
       controls: {
-        allowedVehicleCategories: ["Bicycle"],
+        allowAutoAssignDriver: true,
       },
     });
 
@@ -120,7 +132,7 @@ describe("Business methods tests", () => {
       businessId: business_id,
       businessName: businessName,
       iso2: iso2,
-      controls: { allowedVehicleCategories: ["Bicycle"] },
+      controls: { allowAppPushNotifications: true },
       stateCode: stateCode,
     });
 
@@ -133,7 +145,7 @@ describe("Business methods tests", () => {
   it("should update a business operating state", async () => {
     const response = await service.updateBusinessOperatingState({
       id: operating_state_id,
-      controls: { allowedVehicleCategories: ["Bicycle"] },
+      controls: { allowAppPushNotifications: true },
     });
 
     expect(response.data).toBeTruthy();

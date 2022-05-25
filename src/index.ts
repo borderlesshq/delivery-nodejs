@@ -5,6 +5,7 @@ import Misc from "./modules/misc";
 import Business from "./modules/business";
 import Account from "./modules/account";
 import Authentication from "./modules/authentication";
+import Customer from "./modules/customer";
 class Delivery extends BaseService {
   //   public service: any;
   /**
@@ -19,17 +20,7 @@ class Delivery extends BaseService {
   business: Business = new Business(this.request);
   account: Account = new Account(this.request);
   authentication: Authentication = new Authentication(this.request);
+  customer: Customer = new Customer(this.request);
 }
-
-enum RolesEnum {
-  User = "User",
-}
-
-const del = new Delivery({ token: "", role: RolesEnum.User, business_id: "" });
-
-async () => {
-  const list = await del.misc.getCountryByIso2("3");
-  console.log(list);
-};
 
 export default Delivery;

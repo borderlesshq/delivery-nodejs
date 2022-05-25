@@ -71,9 +71,6 @@ export interface IControls {
   allowAppPushNotifications?: boolean;
   allowInAppPayments?: boolean;
   allowCancelledOrderResurrection?: boolean;
-  allowedVehicleCategories: [
-    "Bike" | "Bus" | "Car" | "Tricycle" | "Bicycle" | "Truck"
-  ];
 }
 
 export interface IUpdateBusinessOperatingCountryInput {

@@ -20,7 +20,7 @@ export interface IAccount {
   address: string;
   iso2: string;
   country: string;
-  role: string;
+  role: role;
   timeCreated: string;
   timeUpdated: string;
 }
