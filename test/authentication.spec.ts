@@ -45,6 +45,8 @@ describe("Authentication methods test", () => {
   it("should create an integration", async () => {
     const response = await service.createIntegration(CreateIntgrationData);
 
+    // console.log(response);
+
     expect(response.data).toBeDefined();
 
     expect(response.data.data.liveKey).toBeTruthy();

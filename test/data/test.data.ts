@@ -5,7 +5,7 @@ import { ISetupAccount } from "../../src/modules/account/interface";
 import { DeliveryOptionsInterface } from "../../src/interfaces";
 
 export const registered_user = {
-  id: "01g3m3t9s7avyyvvgg33egf8gp",
+  id: "01g43ge85j73y9aens2fnhw6g0",
   firstName: "staging",
   lastName: "staging",
   email: "staging4@staging.com",
@@ -24,24 +24,24 @@ export const registered_user = {
   verified: false,
   deviceId: faker.datatype.uuid(),
   registered_business: {
-    id: "01g3wqdjqkw5ht296kcm7jejm1",
+    id: "01g43ggn2vf1fzppxpbx3wg9rg",
     name: "Terry, Flatley and Hudson",
     brandLogoURL: "http://loremflickr.com/640/480",
     brandCoverPhotoURL: "http://loremflickr.com/640/480",
     brandColor: "#fff",
     address: "7768 Jaeden Tunnel Suite 721",
-    contactEmail: "Sheila12@example.net",
-    contactPhone: "+2349078685769",
+    contactEmail: "Sheila13@example.net",
+    contactPhone: "+2349078685761",
     iso2: "US",
-    userId: "01g3wn1e24gtpzxetx0sj2xdx9",
+    userId: "01g43ge85j73y9aens2fnhw6g0",
     planId: null,
     country: "United States",
     state: "American Samoa",
     stateCode: "AS",
     status: "activated",
     baseCurrency: "USD",
-    timeCreated: 1653452753,
-    timeUpdated: 1653452753,
+    timeCreated: 1653680395,
+    timeUpdated: 1653680395,
     category: null,
     assetSize: null,
     outletSize: null,
@@ -51,7 +51,7 @@ export const registered_user = {
 
 export const instancePayload: DeliveryOptionsInterface = {
   token:
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjAxZzN3bjFlMjRndHB6eGV0eDBzajJ4ZHg5IiwiY2xpZW50IjoiIiwiaXNzIjoiQm9yZGVybGVzcyBIUSBJbmMuIiwic3ViIjoiQm9yZGVybGVzc0hRIEFQSSBUb2tlbiIsImF1ZCI6Imh0dHBzOi8vYm9yZGVybGVzc2hxLmNvbSIsImlhdCI6MTY1MzQ1MjczMSwianRpIjoiQm9yZGVybGVzcyBIUSBJbmMuIn0.EdPxomWT28gS6t5ukhtr405mHVCa5H_6vhF6aY6mmIc",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjAxZzQzZ2U4NWo3M3k5YWVuczJmbmh3NmcwIiwiY2xpZW50IjoiIiwiaXNzIjoiQm9yZGVybGVzcyBIUSBJbmMuIiwic3ViIjoiQm9yZGVybGVzc0hRIEFQSSBUb2tlbiIsImF1ZCI6Imh0dHBzOi8vYm9yZGVybGVzc2hxLmNvbSIsImlhdCI6MTY1MzY4MDMyNCwianRpIjoiQm9yZGVybGVzcyBIUSBJbmMuIn0.3eEYAEMjtVJkzV2lK0zB5CJEetEY9ySIFknPGnDHXsw",
   role: "User",
   business_id: registered_user.registered_business.id,
 };

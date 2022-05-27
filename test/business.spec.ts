@@ -88,8 +88,6 @@ describe("Business methods tests", () => {
       },
     });
 
-    console.log(response);
-
     expect(response.data).toBeTruthy();
     expect(response.data.success).toBeTruthy();
 
@@ -129,8 +127,6 @@ describe("Business methods tests", () => {
 
   it("should create business operating state", async () => {
     const response = await service.createBusinessOperatingState({
-      businessId: business_id,
-      businessName: businessName,
       iso2: iso2,
       controls: { allowAppPushNotifications: true },
       stateCode: stateCode,
@@ -146,8 +142,8 @@ describe("Business methods tests", () => {
     const response = await service.updateBusinessOperatingState({
       id: operating_state_id,
       controls: { allowAppPushNotifications: true },
+      allowedVehicleCategories: ["Bicycle"],
     });
-
     expect(response.data).toBeTruthy();
     expect(response.data.success).toBeTruthy();
   });
@@ -174,7 +170,6 @@ describe("Business methods tests", () => {
     const response = await service.listBusinessOperatingCountries({
       limit: 10,
     });
-
     expect(response.data).toBeTruthy();
     expect(response.data.data.length).toBeGreaterThanOrEqual(1);
   });

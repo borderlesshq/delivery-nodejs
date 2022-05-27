@@ -12,7 +12,7 @@
     "prepare": "npm run build",
     "build:watch": "tsc -w -p tsconfig.release.json && npm start",
     "lint": "eslint . --ext .ts,.tsx",
-    "test": "jest account.spec.ts authentication.spec.ts customer.spec.ts",
+    "test": "jest",
     "coverage": "jest --coverage",
     "test:watch": "jest --watch"
   },

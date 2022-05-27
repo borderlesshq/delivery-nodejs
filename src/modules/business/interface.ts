@@ -80,8 +80,6 @@ export interface IUpdateBusinessOperatingCountryInput {
 }
 
 export interface ICreateBusinessOperatingStateInput {
-  businessId: string;
-  businessName: string;
   stateCode: string;
   iso2: string;
   controls: IControls;
@@ -89,8 +87,20 @@ export interface ICreateBusinessOperatingStateInput {
 
 export interface IUpdateBusinessOperatingStateInput {
   id: string;
-  controls: IControls;
+  controls?: IControls;
+  allowedVehicleCategories: IAllowedVehicleCategory[];
+  priceCalculationStrategy?: IPriceCalculationStrategy;
 }
+
+export type IAllowedVehicleCategory =
+  | "Bike"
+  | "Bus"
+  | "Car"
+  | "Tricycle"
+  | "Bicycle"
+  | "Truck";
+
+export type IPriceCalculationStrategy = "smartContract" | "locationPrice";
 
 export interface IBusinessOperatingCountriesFilter {
   pageCursor?: string;
