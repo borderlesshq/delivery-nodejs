@@ -6,6 +6,7 @@ import Business from "./modules/business";
 import Account from "./modules/account";
 import Authentication from "./modules/authentication";
 import Customer from "./modules/customer";
+import Driver from "./modules/driver";
 class Delivery extends BaseService {
   //   public service: any;
   /**
@@ -21,6 +22,7 @@ class Delivery extends BaseService {
   account: Account = new Account(this.request);
   authentication: Authentication = new Authentication(this.request);
   customer: Customer = new Customer(this.request);
+  driver: Driver = new Driver(this.request);
 }
 
 export default Delivery;

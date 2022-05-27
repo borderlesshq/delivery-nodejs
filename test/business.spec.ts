@@ -4,6 +4,7 @@ import Delivery from "../src";
 import Business from "../src/modules/business";
 import Misc from "../src/modules/misc";
 import { businessSetupDetails, instancePayload } from "./data/test.data";
+import { getCountry } from "./data/utils";
 
 jest.setTimeout(10000);
 
@@ -57,26 +58,15 @@ describe("Business methods tests", () => {
     expect(response.data.success).toBeTruthy();
   });
 
-  const getCountry = async () => {
-    const country = countries[Math.floor(Math.random() * countries.length)];
-    iso2 = country.iso2;
-    // stateCode = country.states[0].stateCode;
-    // console.log(country);
-    // stateCode = (await misc_service.listStates(iso2)).data[0].stateCode;
-    let response = (await misc_service.listStates(iso2)).data[0];
-
-    console.log(response);
-
-    stateCode = response.stateCode;
-
-    return response;
-  };
   it("should create a business operating country", async () => {
-    let state = await getCountry();
+    let state = await getCountry(countries, misc_service);
 
     if (!state) {
-      state = await getCountry();
+      state = await getCountry(countries, misc_service);
     }
+
+    iso2 = state.country.iso2;
+
     stateCode = state.stateCode;
 
     const response = await service.createBusinessOperatingCountry({
