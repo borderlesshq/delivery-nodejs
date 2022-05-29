@@ -1,5 +1,3 @@
-import { RolesEnum } from "../../enums";
-
 export interface IMobileLoginInput {
   phone: string;
   iso2: string;
@@ -43,3 +41,16 @@ export interface IListIntegrationsFilter {
 }
 
 export type ISorting = "newer" | "older";
+
+export interface IRegisterInput {
+  businessId: string;
+  firstName: string;
+  lastName: string;
+  phone: string;
+  iso2: string;
+  stateCode: string;
+  email: string;
+  password: string;
+  repeatPassword: string;
+  role: role;
+}

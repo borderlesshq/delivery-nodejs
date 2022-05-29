@@ -1,6 +1,8 @@
 import { FormatResponse } from "../../utils/helpers/functions";
 import {
   ICreateDriverInput,
+  IDriver,
+  IListDriverFilters,
   IUpdateDriverLocationInput,
   IUpdateUpdateDriverInput,
 } from "./interface";
@@ -106,6 +108,91 @@ class Driver {
     const response = await this.request(MUTATION, { payload });
 
     return FormatResponse(response, "updateDriverLocation");
+  }
+
+  async getDriverById(id: string): Promise<{ data: IDriver; error: any }> {
+    const QUERY = `
+        query getDriverById($id:String!){
+          getDriverById(id:$id){
+            id,
+            status,
+            businessId,
+            businessName,
+            firstName,
+            lastName,
+            pictureURL,
+            email,
+            phone,
+            role,
+            deliveries,
+            ratings,
+            iso2,
+            country,
+            state,
+            stateCode,
+            deliveryRange,
+            mode,
+            address,
+            timeCreated,
+            timeUpdated,
+            vehicleId,
+            presence
+          }
+        }
+    `;
+
+    const response = await this.request(QUERY, { id });
+
+    return FormatResponse(response, "getDriverById");
+  }
+
+  async listDrivers(filters: IListDriverFilters): Promise<{
+    data: {
+      count: number;
+      nextPageCursor: string;
+      previousPageCursor: string;
+      data: IDriver[];
+    };
+    error: any;
+  }> {
+    const QUERY = `
+      query listDrivers($filters:DriverFilters!){
+        listDrivers(filters:$filters){
+          count,
+    previousPageCursor,
+    nextPageCursor,
+    data{
+      id,
+      status,
+      businessId,
+      businessName,
+      firstName,
+      lastName,
+      pictureURL,
+      email,
+      phone,
+      role,
+      deliveries,
+      ratings,
+      iso2,
+      country,
+      state,
+      stateCode,
+      deliveryRange,
+      mode,
+      address,
+      timeCreated,
+      timeUpdated,
+      vehicleId,
+      presence
+    }
+        }
+      }
+    `;
+
+    const response = await this.request(QUERY, { filters });
+
+    return FormatResponse(response, "listDrivers");
   }
 }
 

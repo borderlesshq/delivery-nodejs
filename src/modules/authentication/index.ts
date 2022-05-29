@@ -3,6 +3,7 @@ import {
   IIntegration,
   IListIntegrationsFilter,
   IMobileLoginInput,
+  IRegisterInput,
 } from "./interface";
 
 class Authentication {
@@ -40,7 +41,7 @@ class Authentication {
   }
 
   /**
-   *
+   *@description For customers and drivers of a business to login
    * @param payload object
    * @returns
    */
@@ -249,6 +250,27 @@ class Authentication {
     const response = await this.request(MUTATION, { id: integration_id });
 
     return FormatResponse(response, "destroyIntegration");
+  }
+
+  /**
+   * @description For Driver and Customers of a business to signup.
+   * @param payload
+   */
+  async register(payload: IRegisterInput): Promise<{ data: any; error: any }> {
+    const MUTATION = `
+        mutation register($payload:RegisterInput!){
+            register(payload:$payload){
+              success,
+              message,
+              token,
+              resultType,
+              data
+            }
+        }
+    `;
+    const response = await this.request(MUTATION, { payload });
+
+    return FormatResponse(response, "register");
   }
 }
 

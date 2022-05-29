@@ -91,4 +91,15 @@ describe("Driver methods tests", () => {
 
   //   expect(response.data.success).toBeTruthy();
   // });
+
+  it("should get a driver by id", async () => {
+    const response = await service.getDriverById(driver_id);
+
+    expect(response.data).toBeTruthy();
+  });
+
+  it("should list drivers", async () => {
+    const response = await service.listDrivers({ limit: 10, sortBy: "newer" });
+    expect(response.data.data).toBeTruthy();
+  });
 });

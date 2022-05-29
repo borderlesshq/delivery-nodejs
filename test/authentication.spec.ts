@@ -1,20 +1,32 @@
+import faker, { Faker } from "@faker-js/faker";
 import Delivery from "../src";
 import Authentication from "../src/modules/authentication";
+import Business from "../src/modules/business";
+import Misc from "../src/modules/misc";
+import { ICountry } from "../src/modules/misc/interface";
 import {
+  businessSetupDetails,
   CreateIntgrationData,
   instancePayload,
   registered_user,
 } from "./data/test.data";
+import { getCountry } from "./data/utils";
 
 jest.setTimeout(10000);
 
 let service: Authentication;
 let integrationId = "01g3a2bqx1affnbbgn9qvw852n";
+let misc_service: Misc;
+let countries: ICountry[];
+let business: Business;
 describe("Authentication methods test", () => {
   beforeAll(async () => {
     const delivery = new Delivery(instancePayload);
 
     service = delivery.authentication;
+    misc_service = delivery.misc;
+    countries = (await misc_service.listCountries(1000)).data;
+    business = delivery.business;
   });
 
   it("should sign a user into the app and retrieve a access token via webLogin", async () => {
@@ -24,11 +36,11 @@ describe("Authentication methods test", () => {
     expect(response.data).toBeDefined();
     expect(response.data.token).toBeDefined();
 
-    console.log(response.data.token);
+    // console.log(response.data.token);
   });
 
   it("should sign a user into the app and retrieve a access token via mobileLogin", async () => {
-    const { password, phone, role = "User", iso2, deviceId } = registered_user;
+    const { password, phone, iso2, deviceId } = registered_user;
 
     const response = await service.mobileLogin({
       phone,
@@ -97,5 +109,41 @@ describe("Authentication methods test", () => {
     const response = await service.destroyIntegration(integrationId);
 
     expect(response.data).toBeDefined();
+  });
+
+  it("should register a driver or customer", async () => {
+    const {
+      registered_business: { id },
+    } = registered_user;
+    const result = await getCountry(countries, misc_service);
+    let new_bussiness = await business.setupBusiness(businessSetupDetails);
+
+    await business.createBusinessOperatingCountry({
+      businessName: new_bussiness.data.data.name,
+      businessId: new_bussiness.data.data.id,
+      controls: { allowAutoAssignDriver: true },
+      iso2: result.country.iso2,
+    });
+
+    await business.createBusinessOperatingState({
+      iso2: result.country.iso2,
+      stateCode: result.stateCode,
+      controls: { allowDriverPing: true },
+    });
+
+    const response = await service.register({
+      businessId: id,
+      firstName: faker.name.firstName(),
+      lastName: faker.name.lastName(),
+      phone: faker.phone.phoneNumber("+2349078######"),
+      iso2: result.country.iso2,
+      stateCode: result.stateCode,
+      password: "password",
+      repeatPassword: "password",
+      role: "Driver",
+      email: faker.internet.exampleEmail(),
+    });
+
+    expect(response.data.success).toBeTruthy();
   });
 });
