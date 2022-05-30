@@ -1,4 +1,5 @@
 import { FormatResponse } from "../../utils/helpers/functions";
+import { role } from "../authentication/interface";
 import {
   ICreateDriverInput,
   IDriver,
@@ -193,6 +194,66 @@ class Driver {
     const response = await this.request(QUERY, { filters });
 
     return FormatResponse(response, "listDrivers");
+  }
+
+  async deleteDriver(id: string): Promise<{ data: any; error: any }> {
+    const MUTATION = `
+        mutation deleteDriver($id:String!){
+          deleteDriver(id:$id){
+            success,
+            data,
+            message,
+            resultType
+          }
+        }
+    `;
+
+    const response = await this.request(MUTATION, { id });
+
+    return FormatResponse(response, "deleteDriver");
+  }
+
+  async bulkCreateDrivers(fileURL: string): Promise<{ data: any; error: any }> {
+    const MUTATION = `
+        mutation bulkCreateDrivers($fileURL:String!){
+          bulkCreateDrivers(fileURL:$fileURL){
+            success,
+            message,
+            token,
+            resultType,
+            data
+          }
+        }
+    `;
+
+    const response = await this.request(MUTATION, { fileURL });
+
+    return FormatResponse(response, "bulkCreateDrivers");
+  }
+
+  async watchBulkDriversStatus(headers: {
+    token: string;
+    role: role;
+    businessId: string;
+  }): Promise<{ data: any; error: any }> {
+    const SUBSCRIBE = `
+         subscription watchBulkDriversStatus($headers:Headers!){
+          watchBulkDriversStatus(headers:$headers){
+            businessId,
+            businessName,
+            fileURL,
+            status,
+            message,
+            error,
+            timeCreated,
+            timeUpdated
+          }
+         }
+    `;
+
+    const response = await this.request(SUBSCRIBE, { headers });
+
+    return FormatResponse(response, "watchBulkDriversStatus");
   }
 }
 

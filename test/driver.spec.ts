@@ -102,4 +102,19 @@ describe("Driver methods tests", () => {
     const response = await service.listDrivers({ limit: 10, sortBy: "newer" });
     expect(response.data.data).toBeTruthy();
   });
+
+  it("should delete a driver", async () => {
+    const response = await service.deleteDriver(driver_id);
+
+    expect(response.data.success).toBeTruthy();
+  });
+
+  it("should create drivers in bulk", async () => {
+    const response = await service.bulkCreateDrivers(
+      "https://example.com/image.png"
+    );
+
+    console.log(response);
+    expect(response.data.success).toBeTruthy();
+  });
 });
