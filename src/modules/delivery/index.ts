@@ -1,5 +1,9 @@
 import { FormatResponse } from "../../utils/helpers/functions";
-import { ICreateDeliveriesInput } from "./interface";
+import {
+  ICreateDeliveryInput,
+  IDelivery,
+  IListDeliveriesInput,
+} from "./interface";
 
 class Deliveries {
   private request: any;
@@ -7,9 +11,19 @@ class Deliveries {
     this.request = request;
   }
 
-  async createDeliveries(
-    payload: ICreateDeliveriesInput
-  ): Promise<{ data: any; error: any }> {
+  /**
+   * @description create a delivery
+   * @param payload
+   * @returns
+   */
+  async createDelivery(payload: ICreateDeliveryInput): Promise<{
+    data: {
+      success: boolean;
+      message: string;
+      data: IDelivery;
+    };
+    error: any;
+  }> {
     const MUTATION = `
       mutation createDeliveries($payload:CreateDeliveriesInput!){
         createDeliveries(payload:$payload){
@@ -121,6 +135,166 @@ class Deliveries {
     const response = await this.request(MUTATION, { deliveryId, driverId });
 
     return FormatResponse(response, "assignDeliveryDriver");
+  }
+
+  async bulkCreateDeliveries(
+    fileURL: string
+  ): Promise<{ data: any; error: any }> {
+    const MUTATION = `
+        mutation bulkCreateDeliveries($fileURL:String!){
+          bulkCreateDeliveries(fileURL:$fileURL){
+            success,
+            message,
+            data,
+            resultType,
+            token
+          }
+        }
+    `;
+    const response = await this.request(MUTATION, { fileURL });
+
+    return FormatResponse(response, "bulkCreateDeliveries");
+  }
+
+  async listDeliveries(filters: IListDeliveriesInput): Promise<{
+    data: {
+      data: IDelivery[];
+      count: number;
+      nextPageCursor: string;
+      previousePageCursor: string;
+    };
+    error: any;
+  }> {
+    const QUERY = `
+        query listDeliveries($filters:DeliveryFilters!){
+          listDeliveries(filters:$filters){
+            count,
+            nextPageCursor,
+            previousPageCursor,
+            data{
+              id,
+              businessId,
+              businessName,
+              sessionId,
+              mappingId,
+              customTrackingId,
+              requestPayment,
+              paymentModel,
+              paymentMethod,
+              price,
+              paid,
+              currency,
+              priceBreakdown,
+              status,
+              stage,
+              pickupCarriage,
+              pickup{
+                id,
+                businessId,
+                sessionId,
+                businessName,
+                sessionId,
+                mappingId,
+                sender{
+                  senderAccountId,
+                  name,
+                  pictureURL,
+                  email,
+                  phone,
+                  iso2
+                },
+                location{
+                  address,
+                  country,
+                  state,
+                  iso2,
+                  stateCode,
+                  geometry{location
+                    {lat,lng},bounds
+                    {northeast{lat,lng},
+                      southwest{lat,lng}},
+                    viewport
+                    {northeast{lat,lng},southwest{lat,lng}}}
+                },
+                packages{
+                  id,
+                  pickupId,
+                  pictureURL,
+                  sessionId,
+                  mappingId,
+                  name,
+                  description,
+                  quantity,
+                  weight,
+                  # wightUNIT,
+                  tags
+                },
+                pickupCarriage,
+                locationPrice{
+                  id,
+                  iso2,
+                  country,
+                  state,
+                  stateCode,
+                  name,
+                  price,
+                  timeCreated,
+                  timeUpdated
+                },
+                savePickupDetails
+              },
+              dropOff{
+                id,
+                businessId,
+                sessionId,
+                sessionId,
+                mappingId,
+                recipient{
+                  senderAccountId,
+                  name,
+                  pictureURL,
+                  email,
+                  phone,
+                  iso2
+                },
+                location{
+                  address,
+                  country,
+                  state,
+                  iso2,
+                  stateCode,
+                  geometry{location
+                    {lat,lng},bounds
+                    {northeast{lat,lng},
+                      southwest{lat,lng}},
+                    viewport
+                    {northeast{lat,lng},southwest{lat,lng}}}
+                },
+                pickupPackages{
+                  pickupId,
+                  packageId,
+                  quantity
+                },
+                locationPrice{
+                  id,
+                  iso2,
+                  country,
+                  state,
+                  stateCode,
+                  name,
+                  price,
+                  timeCreated,
+                  timeUpdated
+                },
+                saveDropOffLocation
+              }
+            }
+          }
+        }
+    `;
+    const response = await this.request(QUERY, { filters });
+
+    return FormatResponse(response, "listDeliveries");
   }
 }
 

@@ -15,7 +15,7 @@ describe("Deliveries module tests", () => {
   });
 
   it("should create deliveries", async () => {
-    const response = await service.createDeliveries({
+    const response = await service.createDelivery({
       sessionId: Date.now().toString(),
       customTrackingId: Date.now().toString(),
       requestPayment: true,
@@ -58,4 +58,20 @@ describe("Deliveries module tests", () => {
 
   //   expect(response.data.success).toBeTruthy();
   // });
+
+  it("should create deliveries in bulk", async () => {
+    const response = await service.bulkCreateDeliveries(
+      "https://example.com/image.png"
+    );
+
+    // console.log(response.error[0].locations);
+
+    expect(response.data.success).toBeTruthy();
+  });
+
+  it("should get list of deliveries", async () => {
+    const response = await service.listDeliveries({ limit: 10 });
+
+    expect(response.data.data.length).toBeGreaterThan(1);
+  });
 });
