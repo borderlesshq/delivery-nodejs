@@ -296,6 +296,137 @@ class Deliveries {
 
     return FormatResponse(response, "listDeliveries");
   }
+
+  async getDeliveryById(id: string): Promise<{ data: IDelivery; error: any }> {
+    const QUERY = `
+          query getDeliveryById($id:String!){
+            getDeliveryById(id:$id){
+              
+                id,
+                businessId,
+                businessName,
+                sessionId,
+                mappingId,
+                customTrackingId,
+                requestPayment,
+                paymentModel,
+                paymentMethod,
+                price,
+                paid,
+                currency,
+                priceBreakdown,
+                status,
+                stage,
+                pickupCarriage,
+                pickup{
+                  id,
+                  businessId,
+                  sessionId,
+                  businessName,
+                  sessionId,
+                  mappingId,
+                  sender{
+                    senderAccountId,
+                    name,
+                    pictureURL,
+                    email,
+                    phone,
+                    iso2
+                  },
+                  location{
+                    address,
+                    country,
+                    state,
+                    iso2,
+                    stateCode,
+                    geometry{location
+                      {lat,lng},bounds
+                      {northeast{lat,lng},
+                        southwest{lat,lng}},
+                      viewport
+                      {northeast{lat,lng},southwest{lat,lng}}}
+                  },
+                  packages{
+                    id,
+                    pickupId,
+                    pictureURL,
+                    sessionId,
+                    mappingId,
+                    name,
+                    description,
+                    quantity,
+                    weight,
+                    # wightUNIT,
+                    tags
+                  },
+                  pickupCarriage,
+                  locationPrice{
+                    id,
+                    iso2,
+                    country,
+                    state,
+                    stateCode,
+                    name,
+                    price,
+                    timeCreated,
+                    timeUpdated
+                  },
+                  savePickupDetails
+                },
+                dropOff{
+                  id,
+                  businessId,
+                  sessionId,
+                  sessionId,
+                  mappingId,
+                  recipient{
+                    senderAccountId,
+                    name,
+                    pictureURL,
+                    email,
+                    phone,
+                    iso2
+                  },
+                  location{
+                    address,
+                    country,
+                    state,
+                    iso2,
+                    stateCode,
+                    geometry{location
+                      {lat,lng},bounds
+                      {northeast{lat,lng},
+                        southwest{lat,lng}},
+                      viewport
+                      {northeast{lat,lng},southwest{lat,lng}}}
+                  },
+                  pickupPackages{
+                    pickupId,
+                    packageId,
+                    quantity
+                  },
+                  locationPrice{
+                    id,
+                    iso2,
+                    country,
+                    state,
+                    stateCode,
+                    name,
+                    price,
+                    timeCreated,
+                    timeUpdated
+                  },
+                  saveDropOffLocation
+                }
+              
+            }
+          }
+      `;
+
+    const response = await this.request(QUERY, { id });
+
+    return FormatResponse(response, "getDeliveryById");
+  }
 }
 
 export default Deliveries;

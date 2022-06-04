@@ -74,4 +74,9 @@ describe("Deliveries module tests", () => {
 
     expect(response.data.data.length).toBeGreaterThan(1);
   });
+
+  it("should get delivery by id", async () => {
+    const response = await service.getDeliveryById(deliveryId);
+    expect(response.data).toBeTruthy();
+  });
 });
