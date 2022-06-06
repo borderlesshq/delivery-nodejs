@@ -2,7 +2,7 @@ import Delivery from "../src";
 import Deliveries from "../src/modules/delivery";
 import { instancePayload } from "./data/test.data";
 
-jest.setTimeout(10000);
+jest.setTimeout(100000);
 
 let service: Deliveries;
 let sessionId: string;
@@ -79,4 +79,50 @@ describe("Deliveries module tests", () => {
     const response = await service.getDeliveryById(deliveryId);
     expect(response.data).toBeTruthy();
   });
+
+  it("should get deliveries by sessionId", async () => {
+    const response = await service.getDeliveriesSessionBySessionId(sessionId);
+    expect(response.data.sessionId).toBeTruthy();
+  });
+
+  // it("should track single delivery trails input", async () => {
+  //   const response = await service.trackSingleDeliveryTrails({
+  //     businessId: instancePayload.business_id,
+  //   });
+  //   console.log(response);
+
+  //   expect(response.data).toBeTruthy();
+  // });
+
+  // it("should watch bulk deliveries progess", async () => {
+  //   const { token, business_id, role } = instancePayload;
+  //   const response = await service.watchBulkDeliveriesProgress({
+  //     token,
+  //     role,
+  //     businessId: business_id,
+  //   });
+  //   expect(response.data).toBeTruthy();
+  // });
+
+  // it("should watch pendng assignedDeliveries", async () => {
+  //   const { token, business_id, role } = instancePayload;
+  //   const response = await service.watchPendingAssignedDeliveries({
+  //     token,
+  //     role,
+  //     businessId: business_id,
+  //   });
+  //   expect(response.data).toBeTruthy();
+  // });
+
+  // it("should create a drop off",async () => {
+  //   const response = await service.createDropOffs();
+
+  //   expect(response.data.success).toBeTruthy()
+  // })
+
+  // it("should remove dropoffs", async () => {
+  //   const response = await service.removeDropOffs(["88e78we7989"]);
+  //   console.log(response);
+  //   expect(response.data).toBeDefined();
+  // });
 });

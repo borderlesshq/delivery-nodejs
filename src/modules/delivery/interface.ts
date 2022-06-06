@@ -139,3 +139,44 @@ export interface ILocationPrice {
   timeCreated: number;
   timeUpdated: number;
 }
+
+export interface ICreateDropOffInput {
+  sessionId: string;
+  mappingId: string;
+  recipient: ICustomerInput;
+  location: ILocationInput;
+  pickupPackages: IPickupPackageInput[];
+  saveDropOffLocation: boolean;
+  locationPriceId: string;
+}
+
+export interface ILocationInput {
+  address: string;
+  country: string;
+  state: string;
+  iso2: string;
+  stateCode: string;
+}
+export interface ICustomerInput {
+  senderAccountId: string;
+  name: string;
+  pictureURL: string;
+  email: string;
+  phone: string;
+  iso2: string;
+}
+
+export interface IPickupPackageInput {
+  pickupId: string;
+  packageId: string;
+  quantity: string;
+}
+
+export interface ICreatePickupInput {
+  sender: ICustomerInput;
+  location: ILocationInput;
+  packages: IPickupPackageInput[];
+  pickupCarriage: IAllowedVehicleCategory;
+  savePickupDetails: boolean;
+  locationPriceId: string;
+}

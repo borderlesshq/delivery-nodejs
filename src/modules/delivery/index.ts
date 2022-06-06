@@ -1,6 +1,9 @@
 import { FormatResponse } from "../../utils/helpers/functions";
+import { role } from "../authentication/interface";
 import {
   ICreateDeliveryInput,
+  ICreateDropOffInput,
+  ICreatePickupInput,
   IDelivery,
   IListDeliveriesInput,
 } from "./interface";
@@ -426,6 +429,546 @@ class Deliveries {
     const response = await this.request(QUERY, { id });
 
     return FormatResponse(response, "getDeliveryById");
+  }
+
+  async getDeliveriesSessionBySessionId(sessionId: string): Promise<{
+    data: {
+      sessionId: string;
+      mappingId: string;
+      deliveries: IDelivery[];
+      total: number;
+      paid: boolean;
+    };
+    error: any;
+  }> {
+    const QUERY = `
+        query getDeliveriesSessionBySessionId($sessionId:String!){
+          getDeliveriesSessionBySessionId(sessionId:$sessionId){
+            sessionId,
+            mappingId,
+            total,
+            paid,
+            deliveries{
+              id,
+                businessId,
+                businessName,
+                sessionId,
+                mappingId,
+                customTrackingId,
+                requestPayment,
+                paymentModel,
+                paymentMethod,
+                price,
+                paid,
+                currency,
+                priceBreakdown,
+                status,
+                stage,
+                pickupCarriage,
+                pickup{
+                  id,
+                  businessId,
+                  sessionId,
+                  businessName,
+                  sessionId,
+                  mappingId,
+                  sender{
+                    senderAccountId,
+                    name,
+                    pictureURL,
+                    email,
+                    phone,
+                    iso2
+                  },
+                  location{
+                    address,
+                    country,
+                    state,
+                    iso2,
+                    stateCode,
+                    geometry{location
+                      {lat,lng},bounds
+                      {northeast{lat,lng},
+                        southwest{lat,lng}},
+                      viewport
+                      {northeast{lat,lng},southwest{lat,lng}}}
+                  },
+                  packages{
+                    id,
+                    pickupId,
+                    pictureURL,
+                    sessionId,
+                    mappingId,
+                    name,
+                    description,
+                    quantity,
+                    weight,
+                    # wightUNIT,
+                    tags
+                  },
+                  pickupCarriage,
+                  locationPrice{
+                    id,
+                    iso2,
+                    country,
+                    state,
+                    stateCode,
+                    name,
+                    price,
+                    timeCreated,
+                    timeUpdated
+                  },
+                  savePickupDetails
+                },
+                dropOff{
+                  id,
+                  businessId,
+                  sessionId,
+                  sessionId,
+                  mappingId,
+                  recipient{
+                    senderAccountId,
+                    name,
+                    pictureURL,
+                    email,
+                    phone,
+                    iso2
+                  },
+                  location{
+                    address,
+                    country,
+                    state,
+                    iso2,
+                    stateCode,
+                    geometry{location
+                      {lat,lng},bounds
+                      {northeast{lat,lng},
+                        southwest{lat,lng}},
+                      viewport
+                      {northeast{lat,lng},southwest{lat,lng}}}
+                  },
+                  pickupPackages{
+                    pickupId,
+                    packageId,
+                    quantity
+                  },
+                  locationPrice{
+                    id,
+                    iso2,
+                    country,
+                    state,
+                    stateCode,
+                    name,
+                    price,
+                    timeCreated,
+                    timeUpdated
+                  },
+                  saveDropOffLocation
+                }
+            }
+          }
+        }
+    `;
+
+    const response = await this.request(QUERY, { sessionId });
+
+    return FormatResponse(response, "getDeliveriesSessionBySessionId");
+  }
+
+  async trackSingleDeliveryTrails(filter: {
+    deliveryId?: string;
+    customTrackingId?: string;
+    businessId?: string;
+  }): Promise<{ data: IDelivery; error: any }> {
+    const QUERY = `
+          query trackSingleDeliveryTrails($filter:TrackSingleDeliveryTrailsInput!){
+            trackSingleDeliveryTrails(filter:$filter){
+              id,
+              businessId,
+              businessName,
+              sessionId,
+              mappingId,
+              customTrackingId,
+              requestPayment,
+              paymentModel,
+              paymentMethod,
+              price,
+              paid,
+              currency,
+              priceBreakdown,
+              status,
+              stage,
+              pickupCarriage,
+              pickup{
+                id,
+                businessId,
+                sessionId,
+                businessName,
+                sessionId,
+                mappingId,
+                sender{
+                  senderAccountId,
+                  name,
+                  pictureURL,
+                  email,
+                  phone,
+                  iso2
+                },
+                location{
+                  address,
+                  country,
+                  state,
+                  iso2,
+                  stateCode,
+                  geometry{location
+                    {lat,lng},bounds
+                    {northeast{lat,lng},
+                      southwest{lat,lng}},
+                    viewport
+                    {northeast{lat,lng},southwest{lat,lng}}}
+                },
+                packages{
+                  id,
+                  pickupId,
+                  pictureURL,
+                  sessionId,
+                  mappingId,
+                  name,
+                  description,
+                  quantity,
+                  weight,
+                  # wightUNIT,
+                  tags
+                },
+                pickupCarriage,
+                locationPrice{
+                  id,
+                  iso2,
+                  country,
+                  state,
+                  stateCode,
+                  name,
+                  price,
+                  timeCreated,
+                  timeUpdated
+                },
+                savePickupDetails
+              },
+              dropOff{
+                id,
+                businessId,
+                sessionId,
+                sessionId,
+                mappingId,
+                recipient{
+                  senderAccountId,
+                  name,
+                  pictureURL,
+                  email,
+                  phone,
+                  iso2
+                },
+                location{
+                  address,
+                  country,
+                  state,
+                  iso2,
+                  stateCode,
+                  geometry{location
+                    {lat,lng},bounds
+                    {northeast{lat,lng},
+                      southwest{lat,lng}},
+                    viewport
+                    {northeast{lat,lng},southwest{lat,lng}}}
+                },
+                pickupPackages{
+                  pickupId,
+                  packageId,
+                  quantity
+                },
+                locationPrice{
+                  id,
+                  iso2,
+                  country,
+                  state,
+                  stateCode,
+                  name,
+                  price,
+                  timeCreated,
+                  timeUpdated
+                },
+                saveDropOffLocation
+              }
+            }
+          }
+      `;
+
+    const response = await this.request(QUERY, { filter });
+
+    return FormatResponse(response, "trackSingleDeliveryTrails");
+  }
+
+  async watchBulkDeliveriesProgress(headers: {
+    token: string;
+    role: role;
+    businessId: string;
+  }): Promise<{ data: any; error: any }> {
+    const SUBSCRIPTION = `
+        subscription watchBulkDeliveriesProgress($headers:Headers!){
+          watchBulkDeliveriesProgress(headers:$headers){
+            businessId,
+            businessName,
+            fileURL,
+            errors,
+            message,
+            status,
+            timeCreated,
+            timeUpdated
+          }
+        }
+      `;
+
+    const response = await this.request(SUBSCRIPTION, { headers });
+
+    return FormatResponse(response, "watchBulkDeliveriesProgress");
+  }
+
+  async watchPendingAssignedDeliveries(headers: {
+    token: string;
+    role: role;
+    businessId: string;
+  }): Promise<{
+    data: {
+      count: number;
+      nextPageCursor: string;
+      previousPageCursor: string;
+      data: IDelivery[];
+    };
+    error: any;
+  }> {
+    const SUBSCRIPTION = `
+      subscription watchPendingAssignedDeliveries($headers:Headers!){
+        watchPendingAssignedDeliveries(headers:$headers){
+          count,
+          nextPageCursor,
+          previousPageCursor,
+          data{
+            id,
+                businessId,
+                businessName,
+                sessionId,
+                mappingId,
+                customTrackingId,
+                requestPayment,
+                paymentModel,
+                paymentMethod,
+                price,
+                paid,
+                currency,
+                priceBreakdown,
+                status,
+                stage,
+                pickupCarriage,
+                pickup{
+                  id,
+                  businessId,
+                  sessionId,
+                  businessName,
+                  sessionId,
+                  mappingId,
+                  sender{
+                    senderAccountId,
+                    name,
+                    pictureURL,
+                    email,
+                    phone,
+                    iso2
+                  },
+                  location{
+                    address,
+                    country,
+                    state,
+                    iso2,
+                    stateCode,
+                    geometry{location
+                      {lat,lng},bounds
+                      {northeast{lat,lng},
+                        southwest{lat,lng}},
+                      viewport
+                      {northeast{lat,lng},southwest{lat,lng}}}
+                  },
+                  packages{
+                    id,
+                    pickupId,
+                    pictureURL,
+                    sessionId,
+                    mappingId,
+                    name,
+                    description,
+                    quantity,
+                    weight,
+                    # wightUNIT,
+                    tags
+                  },
+                  pickupCarriage,
+                  locationPrice{
+                    id,
+                    iso2,
+                    country,
+                    state,
+                    stateCode,
+                    name,
+                    price,
+                    timeCreated,
+                    timeUpdated
+                  },
+                  savePickupDetails
+                },
+                dropOff{
+                  id,
+                  businessId,
+                  sessionId,
+                  sessionId,
+                  mappingId,
+                  recipient{
+                    senderAccountId,
+                    name,
+                    pictureURL,
+                    email,
+                    phone,
+                    iso2
+                  },
+                  location{
+                    address,
+                    country,
+                    state,
+                    iso2,
+                    stateCode,
+                    geometry{location
+                      {lat,lng},bounds
+                      {northeast{lat,lng},
+                        southwest{lat,lng}},
+                      viewport
+                      {northeast{lat,lng},southwest{lat,lng}}}
+                  },
+                  pickupPackages{
+                    pickupId,
+                    packageId,
+                    quantity
+                  },
+                  locationPrice{
+                    id,
+                    iso2,
+                    country,
+                    state,
+                    stateCode,
+                    name,
+                    price,
+                    timeCreated,
+                    timeUpdated
+                  },
+                  saveDropOffLocation
+                }
+          }
+        }
+      }
+    `;
+
+    const response = await this.request(SUBSCRIPTION, { headers });
+
+    return FormatResponse(response, "watchPendingAssignedDeliveries");
+  }
+
+  async createDropOffs(
+    payload: ICreateDropOffInput
+  ): Promise<{ data: any; error: any }> {
+    const MUTATION = `
+        mutation createDropOffs($payload:CreateDropOffInput!){
+          createDropOffs(payload:$payload){
+            success,
+            message,
+            toke,
+            resultType,
+            data
+          }
+        }
+    `;
+
+    const response = await this.request(MUTATION, { payload });
+
+    return FormatResponse(response, "createDropOffs");
+  }
+
+  /**
+   *
+   * @param payload array of drop off ids
+   * @returns
+   */
+  async removeDropOffs(
+    payload: [id: string]
+  ): Promise<{ data: any; error: any }> {
+    console.log(payload);
+    const MUTATION = `
+        mutation removeDropOffs($payload:[String!]!){
+          removeDropOffs(payload:$payload){
+            success,
+            message,
+            token,
+            resultType,
+            data
+          }
+        }
+    `;
+
+    const response = await this.request(MUTATION, { payload });
+
+    return FormatResponse(response, "removeDropOffs");
+  }
+
+  async createPickups(
+    payload: ICreatePickupInput
+  ): Promise<{ data: any; error: any }> {
+    const MUTATION = `
+        mutation createPickups($payload:CreatePickupInput!){
+          createPickups(payload:$payload){
+            success,
+            message,
+            toke,
+            resultType,
+            data
+          }
+        }
+    `;
+
+    const response = await this.request(MUTATION, { payload });
+
+    return FormatResponse(response, "createPickups");
+  }
+
+  /**
+   *
+   * @param payload array of pick up ids
+   * @returns
+   */
+  async removePickups(
+    payload: [id: string]
+  ): Promise<{ data: any; error: any }> {
+    console.log(payload);
+    const MUTATION = `
+        mutation removePickups($payload:[String!]!){
+          removePickups(payload:$payload){
+            success,
+            message,
+            token,
+            resultType,
+            data
+          }
+        }
+    `;
+
+    const response = await this.request(MUTATION, { payload });
+
+    return FormatResponse(response, "removePickups");
   }
 }
 

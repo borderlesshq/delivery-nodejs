@@ -20,7 +20,7 @@ export interface IUpdateCustomerInput extends Partial<ICreateCustomerInput> {
 }
 
 export interface ICustomer extends IAccount {
-  businessIdS: string;
+  businessId: string;
   dob: string;
   role: role;
   token: String;
