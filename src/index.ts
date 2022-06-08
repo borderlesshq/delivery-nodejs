@@ -8,8 +8,8 @@ import Authentication from "./modules/authentication";
 import Customer from "./modules/customer";
 import Driver from "./modules/driver";
 import Deliveries from "./modules/delivery";
+import Order from "./modules/order";
 class Delivery extends BaseService {
-  //   public service: any;
   /**
    *
    * @param payload token, role, business_id
@@ -25,6 +25,7 @@ class Delivery extends BaseService {
   customer: Customer = new Customer(this.request);
   driver: Driver = new Driver(this.request);
   deliveries: Deliveries = new Deliveries(this.request);
+  order: Order = new Order(this.request);
 }
 
 export default Delivery;
