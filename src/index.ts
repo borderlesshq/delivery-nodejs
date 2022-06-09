@@ -9,6 +9,7 @@ import Customer from "./modules/customer";
 import Driver from "./modules/driver";
 import Deliveries from "./modules/delivery";
 import Order from "./modules/order";
+import Outlet from "./modules/outlet";
 class Delivery extends BaseService {
   /**
    *
@@ -26,6 +27,7 @@ class Delivery extends BaseService {
   driver: Driver = new Driver(this.request);
   deliveries: Deliveries = new Deliveries(this.request);
   order: Order = new Order(this.request);
+  outlet: Outlet = new Outlet(this.request);
 }
 
 export default Delivery;
