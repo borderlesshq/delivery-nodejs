@@ -25,22 +25,22 @@ describe("Outlet methods tests", () => {
   });
 
   it("should create an outlet", async () => {
-    await business_service.createBusinessOperatingCountry({
+    const result1 = await business_service.createBusinessOperatingCountry({
       iso2: "US",
       businessId: business_id,
       businessName: "New Business",
       controls: { allowAppPushNotifications: true },
     });
 
-    await business_service.createBusinessOperatingState({
+    const result2 = await business_service.createBusinessOperatingState({
       stateCode: "AS",
       iso2: "US",
       controls: { allowDriverPing: true },
     });
 
-    // console.log(cont, state);
+    // console.log(result1, result2);
     const response = await service.createOutlet({
-      name: faker.company.companyName(),
+      name: "New Business",
       brandPictureURL: faker.image.imageUrl(),
       contactEmail: faker.internet.exampleEmail(),
       contactPhone: faker.phone.phoneNumber("+2349078######"),
