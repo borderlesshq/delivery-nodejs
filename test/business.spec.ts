@@ -1,31 +1,29 @@
 import faker from "@faker-js/faker";
-import { ICountry } from "../dist/src/modules/misc/interface";
 import Delivery from "../src";
 import Business from "../src/modules/business";
-import Misc from "../src/modules/misc";
-import { businessSetupDetails, instancePayload } from "./data/test.data";
-import { getCountry } from "./data/utils";
+import { businessSetupDetails } from "./data/test.data";
+import { getInitiationCredentials, getIso2AndStateCode } from "./data/utils";
 
-jest.setTimeout(10000);
+jest.setTimeout(1000000);
 
 let service: Business;
 let businessName: string;
 let business_id: string;
-let countries: ICountry[];
 let operating_country_id: string;
 let iso2: string;
 let stateCode: string;
-let misc_service: Misc;
 let operating_state_id: string;
 
 describe("Business methods tests", () => {
   beforeAll(async () => {
-    const delivery = new Delivery(instancePayload);
+    const credentials = await getInitiationCredentials();
+    const delivery = new Delivery({
+      token: credentials.token,
+      business_id: credentials.business_id,
+      role: "User",
+    });
 
     service = delivery.business;
-    misc_service = delivery.misc;
-
-    countries = (await delivery.misc.listCountries(1000)).data;
   });
 
   it("should setup a business account", async () => {
@@ -59,15 +57,11 @@ describe("Business methods tests", () => {
   });
 
   it("should create a business operating country", async () => {
-    let state = await getCountry(countries, misc_service);
+    const countryData = await getIso2AndStateCode();
 
-    if (!state) {
-      state = await getCountry(countries, misc_service);
-    }
+    iso2 = countryData.country.iso2;
 
-    iso2 = state.country.iso2;
-
-    stateCode = state.stateCode;
+    stateCode = countryData.stateCode;
 
     const response = await service.createBusinessOperatingCountry({
       businessId: business_id,

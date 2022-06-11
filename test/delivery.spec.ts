@@ -1,8 +1,8 @@
 import Delivery from "../src";
 import Deliveries from "../src/modules/delivery";
-import { instancePayload } from "./data/test.data";
+import { getInitiationCredentials } from "./data/utils";
 
-jest.setTimeout(100000);
+jest.setTimeout(10000000);
 
 let service: Deliveries;
 let sessionId: string;
@@ -10,7 +10,12 @@ let deliveryId: string;
 
 describe("Deliveries module tests", () => {
   beforeAll(async () => {
-    const delivery = new Delivery(instancePayload);
+    const credentials = await getInitiationCredentials();
+    const delivery = new Delivery({
+      token: credentials.token,
+      business_id: credentials.business_id,
+      role: "User",
+    });
     service = delivery.deliveries;
   });
 

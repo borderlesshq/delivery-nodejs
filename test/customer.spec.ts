@@ -5,8 +5,9 @@ import { ICreateCustomerInput } from "../src/modules/customer/interface";
 import Misc from "../src/modules/misc";
 import { ICountry } from "../src/modules/misc/interface";
 import { instancePayload, registered_user } from "./data/test.data";
+import { getInitiationCredentials } from "./data/utils";
 
-jest.setTimeout(10000);
+jest.setTimeout(1000000);
 
 let service: Customer;
 let misc_service: Misc;
@@ -17,7 +18,12 @@ let phone: string;
 let email: string;
 describe("Customer methods tests", () => {
   beforeAll(async () => {
-    const delivery = new Delivery(instancePayload);
+    const credentials = await getInitiationCredentials();
+    const delivery = new Delivery({
+      token: credentials.token,
+      business_id: credentials.business_id,
+      role: "User",
+    });
 
     service = delivery.customer;
     misc_service = delivery.misc;

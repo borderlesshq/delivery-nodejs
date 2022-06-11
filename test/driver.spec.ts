@@ -5,36 +5,30 @@ import {
   ICreateDriverInput,
   IUpdateUpdateDriverInput,
 } from "../src/modules/driver/interface";
-import Misc from "../src/modules/misc";
-import { ICountry } from "../src/modules/misc/interface";
-import { instancePayload } from "./data/test.data";
-import { getCountry } from "./data/utils";
 
-jest.setTimeout(10000);
+import { getInitiationCredentials, getIso2AndStateCode } from "./data/utils";
+
+jest.setTimeout(1000000);
 
 let service: Driver;
-let countries: ICountry[];
 let iso2: string;
 let stateCode: string;
-let misc_service: Misc;
 let driver_id: string;
 describe("Driver methods tests", () => {
   beforeAll(async () => {
-    const delivery = new Delivery(instancePayload);
+    const credentials = await getInitiationCredentials();
+    const delivery = new Delivery({
+      token: credentials.token,
+      business_id: credentials.business_id,
+      role: "User",
+    });
     service = delivery.driver;
-    misc_service = delivery.misc;
-
-    countries = (await delivery.misc.listCountries(1000)).data;
   });
 
   it("should create a driver account", async () => {
-    let state = await getCountry(countries, misc_service);
-
-    if (!state) {
-      state = await getCountry(countries, misc_service);
-    }
-    iso2 = state.country.iso2;
-    stateCode = state.stateCode;
+    let countryData = await getIso2AndStateCode();
+    iso2 = countryData.country.iso2;
+    stateCode = countryData.stateCode;
 
     const driver_data: ICreateDriverInput = {
       firstName: faker.name.firstName(),
@@ -43,8 +37,8 @@ describe("Driver methods tests", () => {
       email: faker.internet.email(),
       phone: faker.phone.phoneNumber("+2349078######"),
       iso2,
-      country: state.country.name,
-      state: state.name,
+      country: countryData.country.name,
+      state: countryData.name,
       stateCode,
       address: faker.address.streetAddress(true),
       deliveryRange: "international",

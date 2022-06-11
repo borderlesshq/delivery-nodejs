@@ -2,36 +2,39 @@ import faker, { Faker } from "@faker-js/faker";
 import Delivery from "../src";
 import Authentication from "../src/modules/authentication";
 import Business from "../src/modules/business";
-import Misc from "../src/modules/misc";
-import { ICountry } from "../src/modules/misc/interface";
 import {
   businessSetupDetails,
   CreateIntgrationData,
   instancePayload,
   registered_user,
 } from "./data/test.data";
-import { getCountry } from "./data/utils";
+import { getInitiationCredentials, getIso2AndStateCode } from "./data/utils";
 
-jest.setTimeout(10000);
+jest.setTimeout(10000000);
 
 let service: Authentication;
 let integrationId = "01g3a2bqx1affnbbgn9qvw852n";
-let misc_service: Misc;
-let countries: ICountry[];
 let business: Business;
+let businessId: string;
+let account;
 describe("Authentication methods test", () => {
   beforeAll(async () => {
-    const delivery = new Delivery(instancePayload);
+    const credentials = await getInitiationCredentials();
+    account = credentials.account;
+    businessId = credentials.business_id;
+    const delivery = new Delivery({
+      token: credentials.token,
+      business_id: credentials.business_id,
+      role: "User",
+    });
 
     service = delivery.authentication;
-    misc_service = delivery.misc;
-    countries = (await misc_service.listCountries(1000)).data;
     business = delivery.business;
   });
 
   it("should sign a user into the app and retrieve a access token via webLogin", async () => {
-    const { email, password } = registered_user;
-    const response = await service.webLogin(email, password);
+    const { email } = account;
+    const response = await service.webLogin(email, "password");
 
     expect(response.data).toBeDefined();
     expect(response.data.token).toBeDefined();
@@ -112,10 +115,7 @@ describe("Authentication methods test", () => {
   });
 
   it("should register a driver or customer", async () => {
-    const {
-      registered_business: { id },
-    } = registered_user;
-    const result = await getCountry(countries, misc_service);
+    const result = await getIso2AndStateCode();
     let new_bussiness = await business.setupBusiness(businessSetupDetails);
 
     await business.createBusinessOperatingCountry({
@@ -132,7 +132,7 @@ describe("Authentication methods test", () => {
     });
 
     const response = await service.register({
-      businessId: id,
+      businessId: businessId,
       firstName: faker.name.firstName(),
       lastName: faker.name.lastName(),
       phone: faker.phone.phoneNumber("+2349078######"),

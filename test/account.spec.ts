@@ -5,17 +5,24 @@ import {
   instancePayload,
   registered_user,
 } from "./data/test.data";
+import { getInitiationCredentials } from "./data/utils";
 
-jest.setTimeout(10000);
+jest.setTimeout(1000000);
 
 let service: Account;
 
 let email: string;
 let token: string;
-
+let account;
 describe("Account methods tests", () => {
   beforeAll(async () => {
-    const delivery = new Delivery(instancePayload);
+    const credentials = await getInitiationCredentials();
+    account = credentials.account;
+    const delivery = new Delivery({
+      token: credentials.token,
+      business_id: credentials.business_id,
+      role: "User",
+    });
 
     service = delivery.account;
   });
@@ -32,7 +39,10 @@ describe("Account methods tests", () => {
   });
 
   it("should verify user account", async () => {
-    const response = await service.verifyAccount(email, token);
+    const response = await service.verifyAccount(
+      account.email,
+      account.emailVerificationToken
+    );
 
     expect(response.data).toBeDefined();
   });
@@ -44,6 +54,6 @@ describe("Account methods tests", () => {
 
     expect(response.data).toBeDefined();
 
-    expect(response.data.email).toBe(registered_user.email);
+    expect(response.data.email).toBe(account.email);
   });
 });

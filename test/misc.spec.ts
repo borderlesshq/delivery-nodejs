@@ -1,14 +1,19 @@
 import Delivery from "../src";
 import Misc from "../src/modules/misc";
-import { instancePayload } from "./data/test.data";
-jest.setTimeout(10000);
+import { getInitiationCredentials } from "./data/utils";
+jest.setTimeout(1000000);
 
 // let DeliveryInstance;
 let iso2: string;
 let service: Misc;
 describe("Miscellenous methods Tests", () => {
   beforeAll(async () => {
-    const delivery = new Delivery(instancePayload);
+    const credentials = await getInitiationCredentials();
+    const delivery = new Delivery({
+      token: credentials.token,
+      business_id: credentials.business_id,
+      role: "User",
+    });
 
     service = delivery.misc;
   });
