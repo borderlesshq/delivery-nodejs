@@ -10,6 +10,7 @@ import Driver from "./modules/driver";
 import Deliveries from "./modules/delivery";
 import Order from "./modules/order";
 import Outlet from "./modules/outlet";
+import App from "./modules/app";
 class Delivery extends BaseService {
   /**
    *
@@ -28,6 +29,7 @@ class Delivery extends BaseService {
   deliveries: Deliveries = new Deliveries(this.request);
   order: Order = new Order(this.request);
   outlet: Outlet = new Outlet(this.request);
+  app: App = new App(this.request);
 }
 
 export default Delivery;

@@ -11,7 +11,7 @@ jobs:
     strategy:
       matrix:
         node: [16]
-    name: Node ${{ matrix.node }}
+    name: Release Test
     steps:
       - uses: actions/checkout@v3
       - name: Setup node
@@ -19,4 +19,4 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
       - run: npm ci
-      - run: npm test
+      # - run: npm test

@@ -1,4 +1,3 @@
-import { RolesEnum } from "../../src/enums";
 import { SetupBusinessPayload } from "../../src/modules/business/interface";
 import { faker } from "@faker-js/faker";
 import { ISetupAccount } from "../../src/modules/account/interface";
