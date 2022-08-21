@@ -1,5 +1,5 @@
-import { ISorting, status } from "../authentication/interface";
-import { IPeriod } from "../business/interface";
+import { ISorting, status } from '../authentication/interface';
+import { IPeriod } from '../business/interface';
 
 export interface ICreateDriverInput {
   firstName: string;
@@ -16,8 +16,8 @@ export interface ICreateDriverInput {
   mode: DriverModel;
 }
 
-export type DeliveryRange = "local" | "interstate" | "international";
-export type DriverModel = "exclusive" | "pool";
+export type DeliveryRange = 'local' | 'interstate' | 'international';
+export type DriverModel = 'exclusive' | 'pool';
 
 export interface IUpdateUpdateDriverInput extends Partial<ICreateDriverInput> {
   id: string;
@@ -25,7 +25,7 @@ export interface IUpdateUpdateDriverInput extends Partial<ICreateDriverInput> {
   assigned?: boolean;
 }
 
-export type DriverStatus = "pending" | "declined" | "activated" | "deactivated";
+export type DriverStatus = 'pending' | 'declined' | 'activated' | 'deactivated';
 
 export interface IUpdateDriverLocationInput {
   lat: number;
@@ -46,7 +46,7 @@ export interface IDriver extends ICreateDriverInput {
   timeUpdated: number;
 }
 
-export type DriverPresence = "online" | "offline";
+export type DriverPresence = 'online' | 'offline';
 
 export interface IListDriverFilters {
   pageCursor?: string;
@@ -57,5 +57,5 @@ export interface IListDriverFilters {
   sortBy: ISorting;
   limit: number;
   businessId?: string;
-  assigned?: Boolean;
+  assigned?: boolean;
 }

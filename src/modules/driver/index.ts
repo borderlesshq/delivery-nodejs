@@ -1,12 +1,12 @@
-import { FormatResponse } from "../../utils/helpers/functions";
-import { role } from "../authentication/interface";
+import { FormatResponse } from '../../utils/helpers/functions';
+import { role } from '../authentication/interface';
 import {
   ICreateDriverInput,
   IDriver,
   IListDriverFilters,
   IUpdateDriverLocationInput,
   IUpdateUpdateDriverInput,
-} from "./interface";
+} from './interface';
 
 class Driver {
   private request: any;
@@ -36,7 +36,7 @@ class Driver {
 
     const response = await this.request(MUTATION, { payload });
 
-    return FormatResponse(response, "createDriver");
+    return FormatResponse(response, 'createDriver');
   }
 
   async updateDriver(
@@ -56,7 +56,7 @@ class Driver {
 
     const response = await this.request(MUTATION, { payload });
 
-    return FormatResponse(response, "updateDriver");
+    return FormatResponse(response, 'updateDriver');
   }
 
   async deactivateDriver(id: string): Promise<{ data: any; error: any }> {
@@ -72,7 +72,7 @@ class Driver {
       `;
     const response = await this.request(MUTATION, { id });
 
-    return FormatResponse(response, "deactivateDriver");
+    return FormatResponse(response, 'deactivateDriver');
   }
 
   async activateDriver(id: string): Promise<{ data: any; error: any }> {
@@ -88,7 +88,7 @@ class Driver {
       `;
     const response = await this.request(MUTATION, { id });
 
-    return FormatResponse(response, "activateDriver");
+    return FormatResponse(response, 'activateDriver');
   }
 
   async updateDriverLocation(
@@ -108,7 +108,7 @@ class Driver {
 
     const response = await this.request(MUTATION, { payload });
 
-    return FormatResponse(response, "updateDriverLocation");
+    return FormatResponse(response, 'updateDriverLocation');
   }
 
   async getDriverById(id: string): Promise<{ data: IDriver; error: any }> {
@@ -144,7 +144,7 @@ class Driver {
 
     const response = await this.request(QUERY, { id });
 
-    return FormatResponse(response, "getDriverById");
+    return FormatResponse(response, 'getDriverById');
   }
 
   async listDrivers(filters: IListDriverFilters): Promise<{
@@ -193,7 +193,7 @@ class Driver {
 
     const response = await this.request(QUERY, { filters });
 
-    return FormatResponse(response, "listDrivers");
+    return FormatResponse(response, 'listDrivers');
   }
 
   async deleteDriver(id: string): Promise<{ data: any; error: any }> {
@@ -210,7 +210,7 @@ class Driver {
 
     const response = await this.request(MUTATION, { id });
 
-    return FormatResponse(response, "deleteDriver");
+    return FormatResponse(response, 'deleteDriver');
   }
 
   async bulkCreateDrivers(fileURL: string): Promise<{ data: any; error: any }> {
@@ -228,7 +228,7 @@ class Driver {
 
     const response = await this.request(MUTATION, { fileURL });
 
-    return FormatResponse(response, "bulkCreateDrivers");
+    return FormatResponse(response, 'bulkCreateDrivers');
   }
 
   async watchBulkDriversStatus(headers: {
@@ -253,7 +253,7 @@ class Driver {
 
     const response = await this.request(SUBSCRIBE, { headers });
 
-    return FormatResponse(response, "watchBulkDriversStatus");
+    return FormatResponse(response, 'watchBulkDriversStatus');
   }
 }
 

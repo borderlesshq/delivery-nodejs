@@ -1,4 +1,4 @@
-import { FormatResponse } from "../../utils/helpers/functions";
+import { FormatResponse } from '../../utils/helpers/functions';
 import {
   IBusiness,
   IBusinessFilters,
@@ -13,7 +13,7 @@ import {
   IUpdateBusinessOperatingStateInput,
   IUpdateBusinessSetupInput,
   SetupBusinessPayload,
-} from "./interface";
+} from './interface';
 
 class Business {
   private request: any;
@@ -39,7 +39,7 @@ class Business {
 
     const response = await this.request(MUTATION, { payload });
 
-    return FormatResponse(response, "setupBusiness");
+    return FormatResponse(response, 'setupBusiness');
   }
 
   /**
@@ -65,7 +65,7 @@ class Business {
 
     const response = await this.request(MUTATION, { payload });
 
-    return FormatResponse(response, "updateBusiness");
+    return FormatResponse(response, 'updateBusiness');
   }
 
   /**
@@ -89,7 +89,7 @@ class Business {
 
     const response = await this.request(MUTATION, { payload });
 
-    return FormatResponse(response, "updateBusinessSetup");
+    return FormatResponse(response, 'updateBusinessSetup');
   }
 
   async createBusinessOperatingCountry(
@@ -109,7 +109,7 @@ class Business {
 
     const response = await this.request(MUTATION, { payload });
 
-    return FormatResponse(response, "createBusinessOperatingCountry");
+    return FormatResponse(response, 'createBusinessOperatingCountry');
   }
 
   async updateBusinessOperatingCountry(
@@ -129,7 +129,7 @@ class Business {
 
     const response = await this.request(MUTATION, { payload });
 
-    return FormatResponse(response, "updateBusinessOperatingCountry");
+    return FormatResponse(response, 'updateBusinessOperatingCountry');
   }
 
   async deactivateBusinessOperatingCountry(
@@ -149,7 +149,7 @@ class Business {
 
     const response = await this.request(MUTATION, { id });
 
-    return FormatResponse(response, "deactivateBusinessOperatingCountry");
+    return FormatResponse(response, 'deactivateBusinessOperatingCountry');
   }
 
   async activateBusinessOperatingCountry(
@@ -169,7 +169,7 @@ class Business {
 
     const response = await this.request(MUTATION, { id });
 
-    return FormatResponse(response, "activateBusinessOperatingCountry");
+    return FormatResponse(response, 'activateBusinessOperatingCountry');
   }
 
   async createBusinessOperatingState(
@@ -189,7 +189,7 @@ class Business {
 
     const response = await this.request(MUTATION, { payload });
 
-    return FormatResponse(response, "createBusinessOperatingState");
+    return FormatResponse(response, 'createBusinessOperatingState');
   }
 
   async updateBusinessOperatingState(
@@ -209,7 +209,7 @@ class Business {
 
     const response = await this.request(MUTATION, { payload });
 
-    return FormatResponse(response, "updateBusinessOperatingState");
+    return FormatResponse(response, 'updateBusinessOperatingState');
   }
 
   async deactivateBusinessOperatingState(
@@ -229,7 +229,7 @@ class Business {
 
     const response = await this.request(MUTATION, { id });
 
-    return FormatResponse(response, "deactivateBusinessOperatingState");
+    return FormatResponse(response, 'deactivateBusinessOperatingState');
   }
 
   async activateBusinessOperatingState(
@@ -249,7 +249,7 @@ class Business {
 
     const response = await this.request(MUTATION, { id });
 
-    return FormatResponse(response, "activateBusinessOperatingState");
+    return FormatResponse(response, 'activateBusinessOperatingState');
   }
 
   async listBusinessOperatingCountries(
@@ -294,7 +294,7 @@ class Business {
 
     const response = await this.request(QUERY, { filters });
 
-    return FormatResponse(response, "listBusinessOperatingCountries");
+    return FormatResponse(response, 'listBusinessOperatingCountries');
   }
 
   async getBusinessOperatingCountryById(id: string): Promise<{
@@ -327,7 +327,7 @@ class Business {
 
     const response = await this.request(QUERY, { id });
 
-    return FormatResponse(response, "getBusinessOperatingCountryById");
+    return FormatResponse(response, 'getBusinessOperatingCountryById');
   }
 
   async getBusinessOperatingCountryByIso2(iso2: string): Promise<{
@@ -360,7 +360,7 @@ class Business {
 
     const response = await this.request(QUERY, { iso2 });
 
-    return FormatResponse(response, "getBusinessOperatingCountryByIso2");
+    return FormatResponse(response, 'getBusinessOperatingCountryByIso2');
   }
 
   async listBusinessOperatingStates(
@@ -418,7 +418,7 @@ class Business {
 
     const response = await this.request(QUERY, { filters });
 
-    return FormatResponse(response, "listBusinessOperatingStates");
+    return FormatResponse(response, 'listBusinessOperatingStates');
   }
 
   async getBusinessOperatingStateById(id: string): Promise<{
@@ -464,7 +464,7 @@ class Business {
 
     const response = await this.request(QUERY, { id });
 
-    return FormatResponse(response, "getBusinessOperatingStateById");
+    return FormatResponse(response, 'getBusinessOperatingStateById');
   }
 
   async getBusinessOperatingStateByStateCode(
@@ -509,7 +509,7 @@ class Business {
 
     const response = await this.request(QUERY, { iso2, stateCode });
 
-    return FormatResponse(response, "getBusinessOperatingStateByStateCode");
+    return FormatResponse(response, 'getBusinessOperatingStateByStateCode');
   }
 
   async getBusinessById(id: string): Promise<{ data: IBusiness; error: any }> {
@@ -562,7 +562,7 @@ class Business {
     `;
     const response = await this.request(QUERY, { id });
 
-    return FormatResponse(response, "getBusinessById");
+    return FormatResponse(response, 'getBusinessById');
   }
 
   async listBusinesses(filters: IBusinessFilters): Promise<{
@@ -629,7 +629,7 @@ class Business {
 
     const response = await this.request(QUERY, { filters });
 
-    return FormatResponse(response, "listBusinesses");
+    return FormatResponse(response, 'listBusinesses');
   }
 }
 

@@ -1,12 +1,12 @@
-import { FormatResponse } from "../../utils/helpers/functions";
-import { role } from "../authentication/interface";
+import { FormatResponse } from '../../utils/helpers/functions';
+import { role } from '../authentication/interface';
 import {
   ICreateDeliveryInput,
   ICreateDropOffInput,
   ICreatePickupInput,
   IDelivery,
   IListDeliveriesInput,
-} from "./interface";
+} from './interface';
 
 class Deliveries {
   private request: any;
@@ -40,7 +40,7 @@ class Deliveries {
 
     const response = await this.request(MUTATION, { payload });
 
-    return FormatResponse(response, "createDeliveries");
+    return FormatResponse(response, 'createDeliveries');
   }
 
   async startDelivery(deliveryId: string): Promise<{ data: any; error: any }> {
@@ -58,7 +58,7 @@ class Deliveries {
 
     const response = await this.request(MUTATION, { deliveryId });
 
-    return FormatResponse(response, "startDelivery");
+    return FormatResponse(response, 'startDelivery');
   }
 
   async cancelDeliveries(
@@ -78,7 +78,7 @@ class Deliveries {
 
     const response = await this.request(MUTATION, { sessionId });
 
-    return FormatResponse(response, "cancelDeliveries");
+    return FormatResponse(response, 'cancelDeliveries');
   }
 
   async cancelDelivery(deliveryId: string): Promise<{ data: any; error: any }> {
@@ -96,7 +96,7 @@ class Deliveries {
 
     const response = await this.request(MUTATION, { deliveryId });
 
-    return FormatResponse(response, "cancelDelivery");
+    return FormatResponse(response, 'cancelDelivery');
   }
 
   async completeDriverDelivery(
@@ -116,7 +116,7 @@ class Deliveries {
 
     const response = await this.request(MUTATION, { deliveryId });
 
-    return FormatResponse(response, "completeDriverDelivery");
+    return FormatResponse(response, 'completeDriverDelivery');
   }
 
   async assignDeliveryDriver(
@@ -137,7 +137,7 @@ class Deliveries {
 
     const response = await this.request(MUTATION, { deliveryId, driverId });
 
-    return FormatResponse(response, "assignDeliveryDriver");
+    return FormatResponse(response, 'assignDeliveryDriver');
   }
 
   async bulkCreateDeliveries(
@@ -156,7 +156,7 @@ class Deliveries {
     `;
     const response = await this.request(MUTATION, { fileURL });
 
-    return FormatResponse(response, "bulkCreateDeliveries");
+    return FormatResponse(response, 'bulkCreateDeliveries');
   }
 
   async listDeliveries(filters: IListDeliveriesInput): Promise<{
@@ -164,7 +164,7 @@ class Deliveries {
       data: IDelivery[];
       count: number;
       nextPageCursor: string;
-      previousePageCursor: string;
+      previousPageCursor: string;
     };
     error: any;
   }> {
@@ -297,7 +297,7 @@ class Deliveries {
     `;
     const response = await this.request(QUERY, { filters });
 
-    return FormatResponse(response, "listDeliveries");
+    return FormatResponse(response, 'listDeliveries');
   }
 
   async getDeliveryById(id: string): Promise<{ data: IDelivery; error: any }> {
@@ -428,7 +428,7 @@ class Deliveries {
 
     const response = await this.request(QUERY, { id });
 
-    return FormatResponse(response, "getDeliveryById");
+    return FormatResponse(response, 'getDeliveryById');
   }
 
   async getDeliveriesSessionBySessionId(sessionId: string): Promise<{
@@ -572,7 +572,7 @@ class Deliveries {
 
     const response = await this.request(QUERY, { sessionId });
 
-    return FormatResponse(response, "getDeliveriesSessionBySessionId");
+    return FormatResponse(response, 'getDeliveriesSessionBySessionId');
   }
 
   async trackSingleDeliveryTrails(filter: {
@@ -705,7 +705,7 @@ class Deliveries {
 
     const response = await this.request(QUERY, { filter });
 
-    return FormatResponse(response, "trackSingleDeliveryTrails");
+    return FormatResponse(response, 'trackSingleDeliveryTrails');
   }
 
   async watchBulkDeliveriesProgress(headers: {
@@ -730,7 +730,7 @@ class Deliveries {
 
     const response = await this.request(SUBSCRIPTION, { headers });
 
-    return FormatResponse(response, "watchBulkDeliveriesProgress");
+    return FormatResponse(response, 'watchBulkDeliveriesProgress');
   }
 
   async watchPendingAssignedDeliveries(headers: {
@@ -876,7 +876,7 @@ class Deliveries {
 
     const response = await this.request(SUBSCRIPTION, { headers });
 
-    return FormatResponse(response, "watchPendingAssignedDeliveries");
+    return FormatResponse(response, 'watchPendingAssignedDeliveries');
   }
 
   async createDropOffs(
@@ -896,7 +896,7 @@ class Deliveries {
 
     const response = await this.request(MUTATION, { payload });
 
-    return FormatResponse(response, "createDropOffs");
+    return FormatResponse(response, 'createDropOffs');
   }
 
   /**
@@ -907,7 +907,6 @@ class Deliveries {
   async removeDropOffs(
     payload: [id: string]
   ): Promise<{ data: any; error: any }> {
-    console.log(payload);
     const MUTATION = `
         mutation removeDropOffs($payload:[String!]!){
           removeDropOffs(payload:$payload){
@@ -922,7 +921,7 @@ class Deliveries {
 
     const response = await this.request(MUTATION, { payload });
 
-    return FormatResponse(response, "removeDropOffs");
+    return FormatResponse(response, 'removeDropOffs');
   }
 
   async createPickups(
@@ -942,7 +941,7 @@ class Deliveries {
 
     const response = await this.request(MUTATION, { payload });
 
-    return FormatResponse(response, "createPickups");
+    return FormatResponse(response, 'createPickups');
   }
 
   /**
@@ -953,7 +952,6 @@ class Deliveries {
   async removePickups(
     payload: [id: string]
   ): Promise<{ data: any; error: any }> {
-    console.log(payload);
     const MUTATION = `
         mutation removePickups($payload:[String!]!){
           removePickups(payload:$payload){
@@ -968,7 +966,7 @@ class Deliveries {
 
     const response = await this.request(MUTATION, { payload });
 
-    return FormatResponse(response, "removePickups");
+    return FormatResponse(response, 'removePickups');
   }
 }
 

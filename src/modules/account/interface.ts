@@ -1,4 +1,4 @@
-import { role, status } from "../authentication/interface";
+import { role, status } from '../authentication/interface';
 
 export interface ISetupAccount {
   firstName: string;
@@ -13,7 +13,7 @@ export interface ISetupAccount {
 export interface IAccount {
   id: string;
   firstName: string;
-  lastName: String;
+  lastName: string;
   email: string;
   pictureURL: string;
   phone: string;

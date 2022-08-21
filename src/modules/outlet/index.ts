@@ -1,10 +1,10 @@
-import { FormatResponse } from "../../utils/helpers/functions";
+import { FormatResponse } from '../../utils/helpers/functions';
 import {
   ICreateOutletInput,
   IOutlet,
   IOutletFilters,
   IUpdateOutletInput,
-} from "./interface";
+} from './interface';
 
 class Outlet {
   private request: any;
@@ -29,7 +29,7 @@ class Outlet {
 
     const response = await this.request(MUTATION, { payload });
 
-    return FormatResponse(response, "createOutlet");
+    return FormatResponse(response, 'createOutlet');
   }
 
   async updateOutlet(
@@ -49,7 +49,7 @@ class Outlet {
 
     const response = await this.request(MUTATION, { payload });
 
-    return FormatResponse(response, "updateOutlet");
+    return FormatResponse(response, 'updateOutlet');
   }
 
   async deactivateOutlet(id: string): Promise<{ data: any; error: any }> {
@@ -67,7 +67,7 @@ class Outlet {
 
     const response = await this.request(MUTATION, { id });
 
-    return FormatResponse(response, "deactivateOutlet");
+    return FormatResponse(response, 'deactivateOutlet');
   }
 
   async activateOutlet(id: string): Promise<{ data: any; error: any }> {
@@ -85,7 +85,7 @@ class Outlet {
 
     const response = await this.request(MUTATION, { id });
 
-    return FormatResponse(response, "activateOutlet");
+    return FormatResponse(response, 'activateOutlet');
   }
   async deleteOutlet(id: string): Promise<{ data: any; error: any }> {
     const MUTATION = `
@@ -102,7 +102,7 @@ class Outlet {
 
     const response = await this.request(MUTATION, { id });
 
-    return FormatResponse(response, "deleteOutlet");
+    return FormatResponse(response, 'deleteOutlet');
   }
 
   async getOutletById(id: string): Promise<{ data: IOutlet; error: any }> {
@@ -130,7 +130,7 @@ class Outlet {
 
     const response = await this.request(QUERY, { id });
 
-    return FormatResponse(response, "getOutletById");
+    return FormatResponse(response, 'getOutletById');
   }
 
   async listOutlets(filters: IOutletFilters): Promise<{
@@ -171,7 +171,7 @@ class Outlet {
 
     const response = await this.request(QUERY, { filters });
 
-    return FormatResponse(response, "listOutlets");
+    return FormatResponse(response, 'listOutlets');
   }
 }
 

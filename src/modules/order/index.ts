@@ -1,11 +1,11 @@
-import { FormatResponse } from "../../utils/helpers/functions";
+import { FormatResponse } from '../../utils/helpers/functions';
 import {
   IAcceptDeclineOrderInput,
   ICreateOrderInput,
   IOrder,
   IOrderFilters,
   IUpdateOrderInput,
-} from "./interface";
+} from './interface';
 
 class Order {
   private request: any;
@@ -30,7 +30,7 @@ class Order {
 
     const response = await this.request(MUTATION, { payload });
 
-    return FormatResponse(response, "createOrder");
+    return FormatResponse(response, 'createOrder');
   }
 
   async updateOrder(
@@ -50,7 +50,7 @@ class Order {
 
     const response = await this.request(MUTATION, { payload });
 
-    return FormatResponse(response, "updateOrder");
+    return FormatResponse(response, 'updateOrder');
   }
 
   async declineOrder(
@@ -70,7 +70,7 @@ class Order {
 
     const response = await this.request(MUTATION, { payload });
 
-    return FormatResponse(response, "declineOrder");
+    return FormatResponse(response, 'declineOrder');
   }
 
   async acceptOrder(
@@ -90,7 +90,7 @@ class Order {
 
     const response = await this.request(MUTATION, { payload });
 
-    return FormatResponse(response, "acceptOrder");
+    return FormatResponse(response, 'acceptOrder');
   }
 
   async deleteOrder(id: string): Promise<{ data: any; error: any }> {
@@ -108,7 +108,7 @@ class Order {
 
     const response = await this.request(MUTATION, { id });
 
-    return FormatResponse(response, "deleteOrder");
+    return FormatResponse(response, 'deleteOrder');
   }
 
   async orderReady(id: string): Promise<{ data: any; error: any }> {
@@ -126,7 +126,7 @@ class Order {
 
     const response = await this.request(MUTATION, { id });
 
-    return FormatResponse(response, "orderReady");
+    return FormatResponse(response, 'orderReady');
   }
 
   async getOrderById(id: string): Promise<{ data: IOrder; error: any }> {
@@ -172,7 +172,7 @@ class Order {
 
     const response = await this.request(QUERY, { id });
 
-    return FormatResponse(response, "getOrderById");
+    return FormatResponse(response, 'getOrderById');
   }
 
   async listOrders(filters: IOrderFilters): Promise<{
@@ -231,7 +231,7 @@ class Order {
 
     const response = await this.request(QUERY, { filters });
 
-    return FormatResponse(response, "listOrders");
+    return FormatResponse(response, 'listOrders');
   }
 }
 

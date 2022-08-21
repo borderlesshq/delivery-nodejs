@@ -1,47 +1,45 @@
-import faker from "@faker-js/faker";
-import Delivery from "../src";
-import App from "../src/modules/app";
-import { getInitiationCredentials } from "./data/utils";
+import faker from '@faker-js/faker';
+import Delivery from '../src';
+import App from '../src/modules/app';
+import { getInitiationCredentials } from './data/utils';
 
 jest.setTimeout(100000);
 
 let service: App;
-describe("App methods tests", () => {
+describe('App methods tests', () => {
   beforeAll(async () => {
     const { token, business_id } = await getInitiationCredentials();
     const delivery = new Delivery({
       token: token,
-      role: "User",
+      role: 'User',
       business_id,
     });
 
     service = delivery.app;
   });
 
-  describe("createApp()", () => {
-    it("should create an app", async () => {
+  describe('createApp()', () => {
+    it('should create an app', async () => {
       const response = await service.createApp({
         name: faker.name.findName(),
-        splashScreenColor: "white",
+        splashScreenColor: 'white',
         landingLogoURL: faker.image.imageUrl(),
         landingPictureURL: faker.image.imageUrl(),
         splashScreenPictureURL: faker.image.imageUrl(),
         landingTitle: faker.name.findName(),
-        iconColor: "blue",
+        iconColor: 'blue',
         iconName: faker.name.findName(),
         iconURL: faker.image.imageUrl(),
-        primaryColor: "yellow",
-        secondaryColor: "pink",
+        primaryColor: 'yellow',
+        secondaryColor: 'pink',
         allowRegistrations: true,
         removeHQLabel: true,
         enableAndroidBuild: true,
         enableAndroidDeployment: true,
         enableIOSDeployment: true,
         enableISOBuild: true,
-        category: "platforms",
+        category: 'platforms',
       });
-
-      console.log(response);
 
       expect(response.data).toBeDefined();
     });

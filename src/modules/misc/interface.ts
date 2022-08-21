@@ -2,7 +2,7 @@ export interface ICountry {
   name: string;
   iso2: string;
   iso3: string;
-  phone_code: String;
+  phone_code: string;
   capital: string;
   currency: string;
   region: string;

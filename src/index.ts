@@ -1,16 +1,16 @@
-import { DeliveryOptionsInterface } from "./interfaces";
-import "isomorphic-unfetch";
-import BaseService from "./utils/helpers/BaseService";
-import Misc from "./modules/misc";
-import Business from "./modules/business";
-import Account from "./modules/account";
-import Authentication from "./modules/authentication";
-import Customer from "./modules/customer";
-import Driver from "./modules/driver";
-import Deliveries from "./modules/delivery";
-import Order from "./modules/order";
-import Outlet from "./modules/outlet";
-import App from "./modules/app";
+import { DeliveryOptionsInterface } from './interfaces';
+import 'isomorphic-unfetch';
+import BaseService from './utils/helpers/BaseService';
+import Misc from './modules/misc';
+import Business from './modules/business';
+import Account from './modules/account';
+import Authentication from './modules/authentication';
+import Customer from './modules/customer';
+import Driver from './modules/driver';
+import Deliveries from './modules/delivery';
+import Order from './modules/order';
+import Outlet from './modules/outlet';
+import App from './modules/app';
 class Delivery extends BaseService {
   /**
    *

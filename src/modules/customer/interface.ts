@@ -1,7 +1,6 @@
-import Account from "../account";
-import { IAccount } from "../account/interface";
-import { role, status } from "../authentication/interface";
-import { IPeriod } from "../business/interface";
+import { IAccount } from '../account/interface';
+import { role, status } from '../authentication/interface';
+import { IPeriod } from '../business/interface';
 
 export interface ICreateCustomerInput {
   //   businessId: string;
@@ -10,7 +9,7 @@ export interface ICreateCustomerInput {
   pictureURL: string;
   email: string;
   phone: string;
-  iso2: String;
+  iso2: string;
   country: string;
   address: string;
 }
@@ -23,7 +22,7 @@ export interface ICustomer extends IAccount {
   businessId: string;
   dob: string;
   role: role;
-  token: String;
+  token: string;
   state: string;
   stateCode: string;
 }
