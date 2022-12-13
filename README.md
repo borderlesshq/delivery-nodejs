@@ -1,4 +1,4 @@
-# BorderlessHQ Nodejs SDK.
+# Borderless Delivery Nodejs SDK.
 
 ## Installation
 
